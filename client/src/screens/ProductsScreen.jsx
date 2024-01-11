@@ -1,4 +1,4 @@
-import { Alert, AlertDescription, AlertIcon, AlertTitle, Box, Button, Center, Wrap, WrapItem } from '@chakra-ui/react';
+import { Alert, AlertTitle, AlertIcon, AlertDescription, Box, Button, Center, Wrap, WrapItem } from '@chakra-ui/react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import ProductCard from '../components/ProductCard';
@@ -44,7 +44,6 @@ const ProductsScreen = () => {
 								<ArrowLeftIcon />
 							</Button>
 							{Array.from(Array(pagination.totalPages), (e, i) => {
-								console.log(pagination);
 								return (
 									<Button
 										colorScheme={pagination.currentPage === i + 1 ? 'cyan' : 'gray'}

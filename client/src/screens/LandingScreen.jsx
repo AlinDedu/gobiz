@@ -13,7 +13,7 @@ import {
 } from '@chakra-ui/react';
 import { FaArrowRight } from 'react-icons/fa';
 import { Link as ReactLink } from 'react-router-dom';
-import { BsPhoneFlip } from 'react-icons/bs';
+import { BsGiftFill } from 'react-icons/bs';
 
 const LandingScreen = () => (
 	<Box maxW='8xl' mx='auto' p={{ base: '0', lg: '12' }} minH='6xl'>
@@ -27,14 +27,14 @@ const LandingScreen = () => (
 				py={{ base: '6', md: '8', lg: '12' }}>
 				<Stack spacing={{ base: '8', lg: '10' }}>
 					<Stack spacing={{ base: '2', lg: '4' }}>
-						<Flex alignItems='cemter'>
-							<Icon as={BsPhoneFlip} h='12' w='12' color={mode('cyan.500', 'yellow.200')} />
-							<Text fontSize='4xl' fontWeight='bold'>
+						<Flex alignItems='center'>
+							<Icon as={BsGiftFill} h={12} w={12} color={mode('cyan.500', 'yellow.200')} />
+							<Text ml='3' fontSize='4xl' fontWeight='bold'>
 								GoBiz
 							</Text>
 						</Flex>
 						<Heading size='xl' fontWeight='normal'>
-							Refresh your equipment
+							Find the perfect gift
 						</Heading>
 					</Stack>
 					<HStack spacing='3'>
@@ -47,7 +47,7 @@ const LandingScreen = () => (
 			</Box>
 			<Flex flex='1' overflow='hidden'>
 				<Image
-					src={mode('images/landing-light.jpg', 'images/landing-dark.jpg')}
+					src={mode('images/gifting.jpg', 'images/Gift-Shopping.jpg')}
 					fallback={<Skeleton />}
 					maxH='550px'
 					minW='300px'
