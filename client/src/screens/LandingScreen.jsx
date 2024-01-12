@@ -13,7 +13,7 @@ import {
 } from '@chakra-ui/react';
 import { FaArrowRight } from 'react-icons/fa';
 import { Link as ReactLink } from 'react-router-dom';
-import { BsGiftFill } from 'react-icons/bs';
+import { GiPresent } from 'react-icons/gi';
 
 const LandingScreen = () => (
 	<Box maxW='8xl' mx='auto' p={{ base: '0', lg: '12' }} minH='6xl'>
@@ -28,7 +28,7 @@ const LandingScreen = () => (
 				<Stack spacing={{ base: '8', lg: '10' }}>
 					<Stack spacing={{ base: '2', lg: '4' }}>
 						<Flex alignItems='center'>
-							<Icon as={BsGiftFill} h={12} w={12} color={mode('cyan.500', 'yellow.200')} />
+							<Icon as={GiPresent} h={12} w={12} color={mode('cyan.500', 'yellow.200')} />
 							<Text ml='3' fontSize='4xl' fontWeight='bold'>
 								GoBiz
 							</Text>

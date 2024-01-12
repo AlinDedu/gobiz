@@ -13,7 +13,7 @@ import {
 	Icon,
 } from '@chakra-ui/react';
 import { FaGithub, FaLinkedin, FaFacebook } from 'react-icons/fa';
-import { BsGiftFill } from 'react-icons/bs';
+import { BsPhoneFlip } from 'react-icons/bs';
 
 const Footer = () => (
 	<Box w='100%' bg={mode('cyan.300', 'gray.900')}>
@@ -25,12 +25,12 @@ const Footer = () => (
 				py={{ base: '12', md: '16' }}>
 				<Stack spacing={{ base: '6', md: '8' }} align='start'>
 					<Flex alignItems='center'>
-						<Icon as={BsGiftFill} h='10' w='10' color={mode('black', 'yellow.200')} />
-						<Text ml='3' fontSize='2xl' fontWeight='extrabold'>
-							GoBiz
+						<Icon as={BsPhoneFlip} h='10' w='10' color={mode('black', 'yellow.200')} />
+						<Text fontSize='2xl' fontWeight='extrabold'>
+							Tech Lines
 						</Text>
 					</Flex>
-					<Text color='muted'>We bring joy</Text>
+					<Text color='muted'>We love phones.</Text>
 				</Stack>
 				<Stack direction={{ base: 'column-reverse', md: 'column', lg: 'row' }} spacing={{ base: '12', md: '8' }}>
 					<Stack direction='row' spacing='8'>
@@ -59,8 +59,8 @@ const Footer = () => (
 							Stay up to date
 						</Text>
 						<Stack spacing='4' direction={{ base: 'column', sm: 'row' }} maxW={{ lg: '360px' }}>
-							<Input variant='filled' placeholder='Enter your email' type='email' required></Input>
-							<Button colorScheme={mode('facebook', 'linkedin')} type='submit' flexShrink={0}>
+							<Input placeholder='Enter your email' type='email' required />
+							<Button variant='primary' type='submit' flexShrink={0}>
 								Subscribe
 							</Button>
 						</Stack>
@@ -70,7 +70,7 @@ const Footer = () => (
 			<Divider />
 			<Stack pt='8' pb='12' justify='space-between' direction={{ base: 'column-reverse', md: 'row' }} align='center'>
 				<Text fontSize='sm' color='subtle'>
-					&copy; {new Date().getFullYear()} GoBiz, Inc. All rights reserved.
+					&copy; {new Date().getFullYear()} Tech Lines, Inc. All rights reserved.
 				</Text>
 				<ButtonGroup variant='ghost'>
 					<IconButton as='a' href='#' icon={<FaLinkedin fontSize='1.25rem' />} />
