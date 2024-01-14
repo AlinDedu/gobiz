@@ -16,7 +16,7 @@ import { Link as ReactLink } from 'react-router-dom';
 import { GiPresent } from 'react-icons/gi';
 
 const LandingScreen = () => (
-	<Box maxW='8xl' mx='auto' p={{ base: '0', lg: '12' }} minH='6xl'>
+	<Box maxW='8xl' mx='auto' p={{ base: '0', lg: '12' }}>
 		<Stack direction={{ base: 'column-reverse', lg: 'row' }} spacing={{ base: '0', lg: '20' }}>
 			<Box
 				width={{ lg: 'sm' }}
@@ -27,12 +27,6 @@ const LandingScreen = () => (
 				py={{ base: '6', md: '8', lg: '12' }}>
 				<Stack spacing={{ base: '8', lg: '10' }}>
 					<Stack spacing={{ base: '2', lg: '4' }}>
-						<Flex alignItems='center'>
-							<Icon as={GiPresent} h={12} w={12} color={mode('cyan.500', 'yellow.200')} />
-							<Text ml='3' fontSize='4xl' fontWeight='bold'>
-								GoBiz
-							</Text>
-						</Flex>
 						<Heading size='xl' fontWeight='normal'>
 							Find the perfect gift
 						</Heading>
@@ -47,7 +41,7 @@ const LandingScreen = () => (
 			</Box>
 			<Flex flex='1' overflow='hidden'>
 				<Image
-					src={mode('images/gifting.jpg', 'images/Gift-Shopping.jpg')}
+					src={mode('images/background-dark.png', 'images/background-dark.png')}
 					fallback={<Skeleton />}
 					maxH='550px'
 					minW='300px'

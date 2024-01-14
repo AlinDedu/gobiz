@@ -1,4 +1,8 @@
 import nodemailer from 'nodemailer';
+import { storeName } from '../constants.js';
+
+const storeEmail = 'gobiztest9@gmail.com';
+const gmailAuthPass = 'rnag pael xrpr emwf';
 
 export const sendPasswordResetEmail = (token, email, name) => {
 	const html = `
@@ -13,15 +17,15 @@ export const sendPasswordResetEmail = (token, email, name) => {
 	const transporter = nodemailer.createTransport({
 		service: 'gmail',
 		auth: {
-			user: 'benstechlines1@gmail.com',
-			pass: 'vnch hliv npcv divl',
+			user: storeEmail,
+			pass: gmailAuthPass,
 		},
 	});
 
 	const mailOptions = {
-		from: 'benstechlines1@gmail.com',
+		from: storeEmail,
 		to: email,
-		subject: 'Tech Lines: Reset your password request.',
+		subject: `${storeName}: Reset your password request.`,
 		html: html,
 	};
 

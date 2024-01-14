@@ -1,19 +1,15 @@
-import React from 'react';
+import { ChevronDownIcon, CloseIcon, HamburgerIcon } from '@chakra-ui/icons';
 import {
-	IconButton,
+	Alert,
+	AlertDescription,
+	AlertIcon,
+	AlertTitle,
 	Box,
+	Divider,
 	Flex,
 	HStack,
 	Icon,
-	Stack,
-	Text,
-	useColorModeValue as mode,
-	useDisclosure,
-	AlertDescription,
-	Alert,
-	AlertIcon,
-	AlertTitle,
-	Divider,
+	IconButton,
 	Image,
 	Menu,
 	MenuButton,
@@ -21,22 +17,28 @@ import {
 	MenuItem,
 	MenuList,
 	Spacer,
-	useToast,
+	Stack,
+	Skeleton,
+	Text,
 	Tooltip,
+	useColorModeValue as mode,
+	useDisclosure,
+	useToast,
 } from '@chakra-ui/react';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { BiLogInCircle, BiUserCheck } from 'react-icons/bi';
 import { GiPresent } from 'react-icons/gi';
-import { Link as ReactLink, useLocation } from 'react-router-dom';
 import { MdOutlineFavorite, MdOutlineFavoriteBorder } from 'react-icons/md';
-import { useDispatch, useSelector } from 'react-redux';
-import NavLink from './NavLink';
-import ColorModeToggle from './ColorModeToggle';
-import { BiUserCheck, BiLogInCircle } from 'react-icons/bi';
-import { toggleFavorites } from '../redux/actions/productActions';
-import { HamburgerIcon, CloseIcon, ChevronDownIcon } from '@chakra-ui/icons';
 import { TbShoppingCart } from 'react-icons/tb';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link as ReactLink, useLocation } from 'react-router-dom';
+import { toggleFavorites } from '../redux/actions/productActions';
 import { logout } from '../redux/actions/userActions';
-import { MdOutlineAdminPanelSettings } from 'react-icons/md';
+import ColorModeToggle from './ColorModeToggle';
+import NavLink from './NavLink';
+import { storeName } from '../constants.js';
+import { FcGoogle } from 'react-icons/fc';
+import { googleLogout } from '@react-oauth/google';
 
 const Links = [
 	{ name: 'Products', route: '/products' },
@@ -72,6 +74,7 @@ const Header = () => {
 	};
 
 	const logoutHandler = () => {
+		googleLogout();
 		dispatch(logout());
 		toast({
 			description: 'You have been logged out.',
@@ -109,8 +112,9 @@ const Header = () => {
 						<Box alignItems='center' display='flex' as={ReactLink} to='/'>
 							<Icon as={GiPresent} h='6' w='6' color={mode('black', 'yellow.200')} />
 							<Text as='b' ml='2'>
-								GoBiz
+								{storeName}
 							</Text>
+							{/* <Image src={mode('images/logo3.png', 'images/logo1.png')} fallback={<Skeleton />} boxSize='66px' /> */}
 						</Box>
 
 						<HStack as='nav' spacing='4' display={{ base: 'none', md: 'flex' }}>
@@ -158,7 +162,16 @@ const Header = () => {
 							<Menu>
 								<MenuButton rounded='full' variant='link' cursor='pointer' minW='0'>
 									<HStack>
-										<BiUserCheck size='30' />
+										{userInfo.googleImage ? (
+											<Image
+												borderRadius='full'
+												boxSize='40px'
+												src={userInfo.googleImage}
+												referrerPolicy='no-referrer'
+											/>
+										) : (
+											<BiUserCheck size='30' />
+										)}
 										<ChevronDownIcon />
 									</HStack>
 								</MenuButton>
@@ -167,6 +180,7 @@ const Header = () => {
 										<Text pl='3' as='i'>
 											{userInfo.email}
 										</Text>
+										{userInfo.googleId && <FcGoogle />}
 									</HStack>
 									<Divider py='1' />
 									<MenuItem as={ReactLink} to='/order-history'>

@@ -155,7 +155,7 @@ const ProductScreen = () => {
 									</Stack>
 								</Stack>
 							</Stack>
-							<Flex direction='column' align='center' flex='1' _dark={{ bg: 'gray.900' }}>
+							<Flex direction='column' align='center' flex='1'>
 								<Image
 									mb='30px'
 									src={product.images[0]}

@@ -42,10 +42,11 @@ const ProductCard = ({ product, loading }) => {
 		<Skeleton isLoaded={!loading}>
 			<Box
 				_hover={{ transform: 'scale(1.1)', transitionDuration: '0.5s' }}
-				borderWidth='1px'
+				borderWidth='3px'
 				overflow='hidden'
 				p='4'
-				shadow='md'>
+				shadow='md'
+				borderRadius='16'>
 				<Image
 					onMouseEnter={() => setIsShown(true)}
 					onMouseLeave={() => setIsShown(false)}
@@ -53,11 +54,12 @@ const ProductCard = ({ product, loading }) => {
 					fallbackSrc='https://via.placeholder.com/150'
 					alt={product.name}
 					height='200px'
+					roundedTop='8'
 				/>
-				{product.stock < 5 ? (
-					<Badge colorScheme='yellow'>only {product.stock} left</Badge>
-				) : product.stock < 1 ? (
+				{product.stock < 1 ? (
 					<Badge colorScheme='red'>Sold out</Badge>
+				) : product.stock < 5 ? (
+					<Badge colorScheme='yellow'>only {product.stock} left</Badge>
 				) : (
 					<Badge colorScheme='green'>In Stock</Badge>
 				)}

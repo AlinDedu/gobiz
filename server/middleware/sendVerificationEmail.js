@@ -1,4 +1,5 @@
 import nodemailer from 'nodemailer';
+import { storeName } from '../constants.js';
 
 const storeEmail = 'gobiztest9@gmail.com';
 const gmailAuthPass = 'rnag pael xrpr emwf';
@@ -8,7 +9,7 @@ export const sendVerificationEmail = (token, email, name) => {
     <html>
         <body>
             <h3>Dear ${name}</h3>
-            <p>Thanks for signing up at Tech Lines!</p>
+            <p>Thanks for signing up at ${storeName}</p>
             <p>Use the link below to verify your email</p>
             <a href="http://localhost:3000/email-verify/${token}">Click here!</a>
         </body>

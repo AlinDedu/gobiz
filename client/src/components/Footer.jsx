@@ -5,7 +5,9 @@ import {
 	Divider,
 	IconButton,
 	Input,
+	Image,
 	Stack,
+	Skeleton,
 	Text,
 	useColorModeValue as mode,
 	Box,
@@ -13,7 +15,8 @@ import {
 	Icon,
 } from '@chakra-ui/react';
 import { FaGithub, FaLinkedin, FaFacebook } from 'react-icons/fa';
-import { BsPhoneFlip } from 'react-icons/bs';
+import { GiPresent } from 'react-icons/gi';
+import { storeName } from '../constants';
 
 const Footer = () => (
 	<Box w='100%' bg={mode('cyan.300', 'gray.900')}>
@@ -23,14 +26,16 @@ const Footer = () => (
 				direction={{ base: 'column', md: 'row' }}
 				justify='space-between'
 				py={{ base: '12', md: '16' }}>
-				<Stack spacing={{ base: '6', md: '8' }} align='start'>
+				<Stack spacing={{ base: '6', md: '8' }} align='center'>
 					<Flex alignItems='center'>
-						<Icon as={BsPhoneFlip} h='10' w='10' color={mode('black', 'yellow.200')} />
-						<Text fontSize='2xl' fontWeight='extrabold'>
-							Tech Lines
+						<Icon as={GiPresent} h='10' w='10' color={mode('black', 'yellow.200')} />
+						<Text fontSize='2xl' fontWeight='extrabold' ml='2'>
+							{storeName}
 						</Text>
 					</Flex>
-					<Text color='muted'>We love phones.</Text>
+					<Text color='muted' pt='-10'>
+						We love gifts.
+					</Text>
 				</Stack>
 				<Stack direction={{ base: 'column-reverse', md: 'column', lg: 'row' }} spacing={{ base: '12', md: '8' }}>
 					<Stack direction='row' spacing='8'>
@@ -70,7 +75,7 @@ const Footer = () => (
 			<Divider />
 			<Stack pt='8' pb='12' justify='space-between' direction={{ base: 'column-reverse', md: 'row' }} align='center'>
 				<Text fontSize='sm' color='subtle'>
-					&copy; {new Date().getFullYear()} Tech Lines, Inc. All rights reserved.
+					&copy; {new Date().getFullYear()} GoBiz, Inc. All rights reserved.
 				</Text>
 				<ButtonGroup variant='ghost'>
 					<IconButton as='a' href='#' icon={<FaLinkedin fontSize='1.25rem' />} />
