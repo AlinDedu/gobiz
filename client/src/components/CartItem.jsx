@@ -1,5 +1,6 @@
 import { CloseButton, Flex, Image, Select, Spacer, Text, VStack, useColorModeValue as mode } from '@chakra-ui/react';
 import { useDispatch } from 'react-redux';
+import { currency } from '../constants';
 import { addCartItem, removeCartItem } from '../redux/actions/cartActions';
 
 const CartItem = ({ cartItem }) => {
@@ -32,7 +33,16 @@ const CartItem = ({ cartItem }) => {
 							</option>
 						))}
 					</Select>
-					<Text fontWeight='bold'>${price}</Text>
+					<Text fontWeight='bold'>
+						{qty > 1 && (
+							<>
+								<Text as='span' fontWeight='normal' fontSize='sm' color={mode('gray.500', 'gray.300')} mr='5'>
+									{currency} {price} each
+								</Text>
+							</>
+						)}
+						{currency} {price * qty}
+					</Text>
 				</Flex>
 			</VStack>
 		</Flex>

@@ -41,5 +41,5 @@ export const setShipping = (value) => async (dispatch) => {
 };
 
 export const resetCart = () => (dispatch) => {
-	dispatch(clearCart);
+	dispatch(clearCart());
 };

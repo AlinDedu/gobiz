@@ -8,6 +8,7 @@ import { Link as ReactLink } from 'react-router-dom';
 import { addCartItem } from '../redux/actions/cartActions';
 import { useEffect } from 'react';
 import { TbShoppingCartPlus } from 'react-icons/tb';
+import { currency } from '../constants';
 
 const ProductCard = ({ product, loading }) => {
 	const dispatch = useDispatch();
@@ -77,7 +78,7 @@ const ProductCard = ({ product, loading }) => {
 				<Flex justify='space-between' alignItems='center' mt='2'>
 					<Badge colorScheme='cyan'>{product.category}</Badge>
 					<Text fontSize='xl' fontWeight='semibold' color='cyan.600'>
-						${product.price}
+						{currency} {product.price}
 					</Text>
 				</Flex>
 				<Flex justify='space-between' mt='2'>

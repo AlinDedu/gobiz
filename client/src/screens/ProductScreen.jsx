@@ -29,6 +29,7 @@ import { useEffect, useState } from 'react';
 import { addCartItem } from '../redux/actions/cartActions';
 import Star from '../components/Star';
 import { createProductReview } from '../redux/actions/productActions';
+import { currency } from '../constants';
 
 const ProductScreen = () => {
 	const [amount, setAmount] = useState(1);
@@ -119,7 +120,9 @@ const ProductScreen = () => {
 								</Heading>
 								<Stack spacing='5'>
 									<Box>
-										<Text fontSize='xl'>${product.price}</Text>
+										<Text fontSize='xl'>
+											{currency} {product.price}
+										</Text>
 										<Flex>
 											<HStack spacing='2px'>
 												<Star color='cyan.500' />
