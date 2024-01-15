@@ -16,6 +16,7 @@ import {
 	Table,
 	Td,
 	Wrap,
+	Badge,
 } from '@chakra-ui/react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserOrders } from '../redux/actions/userActions';
@@ -58,6 +59,7 @@ const YourOrdersScreen = () => {
 									<Th>Order Date</Th>
 									<Th>Paid Total</Th>
 									<Th>Items</Th>
+									<Th> Status</Th>
 									<Th>Print Receipt</Th>
 								</Tr>
 							</Thead>
@@ -78,6 +80,17 @@ const YourOrdersScreen = () => {
 													</ListItem>
 												</UnorderedList>
 											))}
+										</Td>
+										<Td>
+											{order.isDelivered ? (
+												<Badge variant='outline' colorScheme='green'>
+													Delivered
+												</Badge>
+											) : (
+												<Badge variant='outline' colorScheme='red'>
+													Preparing
+												</Badge>
+											)}
 										</Td>
 										<Td>
 											<Button variant='outline'>Receipt</Button>
