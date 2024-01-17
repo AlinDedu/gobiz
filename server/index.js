@@ -4,6 +4,7 @@ import connectToDatabase from './db.js';
 import express, { application } from 'express';
 import cors from 'cors';
 import path from 'path';
+import { fileURLToPath } from 'url';
 
 //Routes
 import productRoutes from './routes/productRoutes.js';
@@ -27,10 +28,15 @@ app.get('/api/config/google', (req, res) => res.send(process.env.GOOGLE_CLIENT_I
 
 const port = 5000;
 
-const _dirname = path.resolve();
+// Resolve the directory path
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Serve static files from the 'uploads' directory
 app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
 
-if (process.env.NODE_ENV == 'production') {
+// Serve the React app in production
+if (process.env.NODE_ENV === 'production') {
 	app.use(express.static(path.join(__dirname, '/client/build')));
 
 	app.get('*', (req, res) => res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html')));
