@@ -95,6 +95,7 @@ const handleCheckoutSession = async (session) => {
 			subtotal: subtotal,
 			totalPrice: totalPrice,
 		});
+		await order.save();
 		console.log('Saved order: ', order);
 	} catch (error) {
 		console.error('Error handling checkout session:', error);
