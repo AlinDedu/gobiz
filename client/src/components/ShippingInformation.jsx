@@ -1,23 +1,10 @@
-import {
-	Box,
-	Button,
-	Flex,
-	FormControl,
-	Heading,
-	Radio,
-	RadioGroup,
-	Spacer,
-	Stack,
-	Text,
-	VStack,
-} from '@chakra-ui/react';
+import { Box, Button, Flex, FormControl, FormLabel, Radio, RadioGroup, Stack, VStack } from '@chakra-ui/react';
 import { Formik } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link as ReactLink } from 'react-router-dom';
 import * as Yup from 'yup';
-import { setShipping } from '../redux/actions/cartActions';
 import { setAddress, setPayment } from '../redux/actions/orderActions';
 import TextField from './TextField';
-import { Link as ReactLink } from 'react-router-dom';
 
 const ShippingInformation = () => {
 	const { shipping } = useSelector((state) => state.cart);
@@ -36,7 +23,7 @@ const ShippingInformation = () => {
 				address: shippingAddress ? shippingAddress.address : '',
 				postalCode: shippingAddress ? shippingAddress.postalCode : '',
 				city: shippingAddress ? shippingAddress.city : '',
-				country: shippingAddress ? shippingAddress.country : '',
+				country: 'Romania',
 			}}
 			validationSchema={Yup.object({
 				address: Yup.string().required('We need an address.').min(2, 'This address is too short.'),
@@ -58,37 +45,15 @@ const ShippingInformation = () => {
 									<TextField name='city' placeholder='City' label='City' />
 								</Box>
 							</Flex>
-							<TextField name='country' placeholder='Country' label='Country' />
-						</FormControl>
-						<Box w='100%' pr='5'>
-							<Heading fontSize='2xl' fontWeight='extrabold' mb='10'>
-								Shipping Method
-							</Heading>
-							<RadioGroup
-								onChange={(e) => {
-									dispatch(setShipping(e === 'express' ? Number(14.99).toFixed(2) : Number(4.99).toFixed(2)));
-								}}
-								defaultValue={shipping === 4.99 ? 'withoutExpress' : 'express'}>
-								<Stack direction={{ base: 'column', lg: 'row' }} align={{ lg: 'flex-start' }}>
-									<Stack pr='10' spacing={{ base: '8', md: '10' }} flex='1.5'>
-										<Box>
-											<Radio value='express'>
-												<Text fontWeight='bold'>Express 14.99</Text>
-												<Text>Dispatched in 24 hours</Text>
-											</Radio>
-										</Box>
-										<Stack spacing='6'>Express</Stack>
+							<FormControl>
+								<FormLabel>Country (for now we can only deliver here)</FormLabel>
+								<RadioGroup defaultValue='Romania' onChange={() => {}} value={formik.values.country}>
+									<Stack direction='row'>
+										<Radio value='Romania'>Romania</Radio>
 									</Stack>
-
-									<Radio value='withoutExpress'>
-										<Box>
-											<Text fontWeight='bold'>Standard 4.99</Text>
-											<Text>Dispatched in 2-3 days</Text>
-										</Box>
-									</Radio>
-								</Stack>
-							</RadioGroup>
-						</Box>
+								</RadioGroup>
+							</FormControl>
+						</FormControl>
 					</VStack>
 					<Flex alignItems='center' gap='2' direction={{ base: 'column', lg: 'row' }}>
 						<Button variant='outline' colorScheme='cyan' w='100%' as={ReactLink} to='/cart'>

@@ -18,27 +18,29 @@ import {
 	MenuList,
 	Spacer,
 	Stack,
-	Skeleton,
 	Text,
 	Tooltip,
 	useColorModeValue as mode,
 	useDisclosure,
 	useToast,
 } from '@chakra-ui/react';
+import { googleLogout } from '@react-oauth/google';
 import React, { useEffect, useState } from 'react';
 import { BiLogInCircle, BiUserCheck } from 'react-icons/bi';
+import { FcGoogle } from 'react-icons/fc';
+import { BsBoxSeam } from 'react-icons/bs';
 import { GiPresent } from 'react-icons/gi';
-import { MdOutlineFavorite, MdOutlineFavoriteBorder } from 'react-icons/md';
+import { MdOutlineFavorite, MdOutlineFavoriteBorder, MdOutlineAdminPanelSettings } from 'react-icons/md';
+import { CgProfile } from 'react-icons/cg';
 import { TbShoppingCart } from 'react-icons/tb';
+import { FiLogOut } from 'react-icons/fi';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link as ReactLink, useLocation } from 'react-router-dom';
+import { storeName } from '../constants.js';
 import { toggleFavorites } from '../redux/actions/productActions';
 import { logout } from '../redux/actions/userActions';
 import ColorModeToggle from './ColorModeToggle';
 import NavLink from './NavLink';
-import { storeName } from '../constants.js';
-import { FcGoogle } from 'react-icons/fc';
-import { googleLogout } from '@react-oauth/google';
 
 const Links = [
 	{ name: 'Products', route: '/products' },
@@ -177,40 +179,58 @@ const Header = () => {
 								</MenuButton>
 								<MenuList>
 									<HStack>
-										<Text pl='3' as='i'>
+										<Text pl='3' as='i' fontWeight='semibold'>
 											{userInfo.email}
 										</Text>
 										{userInfo.googleId && <FcGoogle />}
 									</HStack>
 									<Divider py='1' />
 									<MenuItem as={ReactLink} to='/order-history'>
-										Order History
+										<BsBoxSeam />
+										<Text ml='4' fontWeight='semibold'>
+											Order History
+										</Text>
 									</MenuItem>
 									<MenuItem as={ReactLink} to='/profile'>
-										Profile
+										<CgProfile />
+										<Text ml='4' fontWeight='semibold'>
+											Profile
+										</Text>
 									</MenuItem>
 									{userInfo.isAdmin && (
 										<>
 											<MenuDivider />
 											<MenuItem as={ReactLink} to='/admin-console'>
-												Admin Console
+												<MdOutlineAdminPanelSettings />
+												<Text ml='4' fontWeight='semibold'>
+													Admin Console
+												</Text>
 											</MenuItem>
 										</>
 									)}
 									<MenuDivider />
-									<MenuItem onClick={logoutHandler}>Logout</MenuItem>
+									<MenuItem onClick={logoutHandler}>
+										<FiLogOut />
+										<Text ml='4' fontWeight='bold'>
+											Logout
+										</Text>
+									</MenuItem>
 								</MenuList>
 							</Menu>
 						) : (
 							<Menu>
 								<MenuButton as={IconButton} variant='ghost' cursor='pointer' icon={<BiLogInCircle size='25px' />} />
 								<MenuList>
-									<MenuItem as={ReactLink} to='/login' p='2' fontWeight='400' variant='link'>
-										Sign in
+									<MenuItem as={ReactLink} to='/login' p='2' fontWeight='700' variant='link'>
+										<Text textAlign='center' mx='auto'>
+											Sign in
+										</Text>
 									</MenuItem>
 									<MenuDivider />
-									<MenuItem as={ReactLink} to='/registration' p='2' fontWeight='400' variant='link'>
-										Sign up
+									<MenuItem as={ReactLink} to='/registration' p='2' fontWeight='700' variant='link'>
+										<Text textAlign='center' mx='auto'>
+											Sign up
+										</Text>
 									</MenuItem>
 								</MenuList>
 							</Menu>

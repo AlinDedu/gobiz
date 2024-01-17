@@ -4,10 +4,11 @@ import asyncHandler from 'express-async-handler';
 import jwt from 'jsonwebtoken';
 import { sendVerificationEmail } from '../middleware/sendVerificationEmail.js';
 import { sendPasswordResetEmail } from '../middleware/sendPasswordResetEmail.js';
-import { protectRoute } from '../middleware/authMiddleware.js';
+import { protectRoute, admin } from '../middleware/authMiddleware.js';
 import Order from '../models/Order.js';
 
 const userRoutes = express.Router();
+userRoutes.use(express.json());
 
 //TODO: redefine expiresIn
 const genToken = (id) => {
@@ -183,6 +184,21 @@ const getUserOrders = asyncHandler(async (req, res) => {
 	}
 });
 
+const getUsers = asyncHandler(async (req, res) => {
+	const users = await User.find({});
+	res.json(users);
+});
+
+const deleteUser = asyncHandler(async (req, res) => {
+	try {
+		const user = await User.findByIdAndDelete(req.params.id);
+		res.json(user);
+	} catch (error) {
+		res.status(404);
+		throw new Error('This user could not be found.');
+	}
+});
+
 userRoutes.route('/login').post(loginUser);
 userRoutes.route('/register').post(registerUser);
 userRoutes.route('/verify-email').get(protectRoute, verifyEmail);
@@ -190,5 +206,7 @@ userRoutes.route('/password-reset-request').post(passwordResetRequest);
 userRoutes.route('/password-reset').post(passwordReset);
 userRoutes.route('/google-login').post(googleLogin);
 userRoutes.route('/:id').get(protectRoute, getUserOrders);
+userRoutes.route('/').get(protectRoute, admin, getUsers);
+userRoutes.route('/:id').delete(protectRoute, admin, deleteUser);
 
 export default userRoutes;

@@ -7,13 +7,15 @@ import {
 	setFavoritesToggle,
 	setProduct,
 	productReviewed,
+	resetError,
 } from '../slices/product';
 import axios from 'axios';
+import { productsPerPage } from '../../constants';
 
 export const getProducts = (page, favouriteToggle) => async (dispatch) => {
 	dispatch(setLoading());
 	try {
-		const { data } = await axios.get(`/api/products/${page}/${10}`);
+		const { data } = await axios.get(`/api/products/${page}/${productsPerPage}`);
 		const { products, pagination } = data;
 		dispatch(setProducts(products));
 		dispatch(setPagination(pagination));
@@ -87,7 +89,6 @@ export const createProductReview = (productId, userId, comment, rating, title) =
 	const {
 		user: { userInfo },
 	} = getState();
-
 	try {
 		const config = { headers: { Authorization: `Bearer ${userInfo.token}`, 'Content-Type': 'application/json' } };
 
@@ -104,4 +105,8 @@ export const createProductReview = (productId, userId, comment, rating, title) =
 			)
 		);
 	}
+};
+
+export const resetProductError = () => async (dispatch) => {
+	dispatch(resetError());
 };

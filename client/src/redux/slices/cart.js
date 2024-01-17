@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { shippingRate } from '../../constants';
 
 const calculateSubtotal = (cartState) => {
 	let result = 0;
@@ -10,7 +11,7 @@ export const initialState = {
 	loading: false,
 	error: null,
 	cartItems: JSON.parse(localStorage.getItem('cartItems')) ?? [],
-	shipping: JSON.parse(localStorage.getItem('shipping')) ?? Number(4.99),
+	shipping: JSON.parse(localStorage.getItem('shipping')) ?? Number(shippingRate),
 	subtotal: localStorage.getItem('cartItems') ? calculateSubtotal(JSON.parse(localStorage.getItem('cartItems'))) : 0,
 };
 
@@ -59,7 +60,7 @@ export const cartSlice = createSlice({
 			localStorage.removeItem('shipping');
 			localStorage.removeItem('subTotal');
 			state.cartItems = [];
-			state.shipping = Number(4.99);
+			state.shipping = Number(shippingRate);
 			state.subtotal = 0;
 			state.loading = false;
 			state.error = null;

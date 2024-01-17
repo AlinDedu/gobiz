@@ -17,12 +17,14 @@ import {
 	Td,
 	Wrap,
 	Badge,
+	Text,
 } from '@chakra-ui/react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserOrders } from '../redux/actions/userActions';
 import { useEffect } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 import { currency } from '../constants';
+import { LuReceipt } from 'react-icons/lu';
 
 const YourOrdersScreen = () => {
 	const dispatch = useDispatch();
@@ -67,7 +69,16 @@ const YourOrdersScreen = () => {
 								{orders.map((order) => (
 									<Tr key={order._id}>
 										<Td>{order._id}</Td>
-										<Td>{new Date(order.createdAt).toDateString()}</Td>
+										<Td>
+											{new Date(order.createdAt).toLocaleString('en-US', {
+												weekday: 'short',
+												year: 'numeric',
+												month: 'short',
+												day: 'numeric',
+												hour: 'numeric',
+												minute: 'numeric',
+											})}
+										</Td>
 										<Td>
 											{currency} {order.totalPrice}
 										</Td>
@@ -84,16 +95,18 @@ const YourOrdersScreen = () => {
 										<Td>
 											{order.isDelivered ? (
 												<Badge variant='outline' colorScheme='green'>
-													Delivered
+													Shipped
 												</Badge>
 											) : (
-												<Badge variant='outline' colorScheme='red'>
-													Preparing
+												<Badge variant='outline' colorScheme='yellow'>
+													Pending
 												</Badge>
 											)}
 										</Td>
 										<Td>
-											<Button variant='outline'>Receipt</Button>
+											<Button variant='outline'>
+												<Text ml='2'>Receipt</Text>
+											</Button>
 										</Td>
 									</Tr>
 								))}
