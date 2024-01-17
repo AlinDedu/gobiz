@@ -14,7 +14,6 @@ const stripeWebhookRoutes = express.Router();
 stripeWebhookRoutes.use(express.raw({ type: 'application/json' }));
 
 const handleWebhook = async (req, res) => {
-	console.log('Webhook fired');
 	const signature = req.headers['stripe-signature'];
 
 	let event;
@@ -28,21 +27,9 @@ const handleWebhook = async (req, res) => {
 
 	// Handle the event
 	switch (event.type) {
-		// case 'payment_intent.succeeded':
-		// 	const paymentIntentSucceeded = event.data.object;
-		// 	console.log('Payment Intent Succeeded');
-		// 	console.log(paymentIntentSucceeded);
-		// 	break;
-
-		// case 'charge.succeeded':
-		// 	const chargeSucceeded = event.data.object;
-		// 	console.log('Charge Succeeded');
-		// 	console.log(chargeSucceeded);
-		// 	break;
-
 		case 'checkout.session.completed':
 			const session = event.data.object;
-			console.log(session);
+
 			handleCheckoutSession(session);
 			break;
 
@@ -54,13 +41,12 @@ const handleWebhook = async (req, res) => {
 };
 
 const handleCheckoutSession = async (session) => {
-	console.log('Handle checkout session');
 	const checkoutSession = await stripe.checkout.sessions.retrieve(session.id, {
 		expand: ['line_items'],
 	});
 
 	const lineItems = checkoutSession.line_items.data;
-	// console.log(lineItems);
+
 	try {
 		// Retrive user information from metadata
 		const userId = session.metadata.userId;
@@ -83,7 +69,7 @@ const handleCheckoutSession = async (session) => {
 		const orderItems = await Promise.all(
 			lineItems.map(async (item) => {
 				const product = await Product.findOne({ stripeId: item.price.id });
-				console.log(product);
+
 				product.stock = product.stock - item.quantity;
 				await product.save();
 
@@ -97,6 +83,7 @@ const handleCheckoutSession = async (session) => {
 			})
 		);
 
+		console.log('Order Items: ', orderItems);
 		// Create a new order
 		const order = new Order({
 			user: userId,
@@ -108,6 +95,7 @@ const handleCheckoutSession = async (session) => {
 			subtotal: subtotal,
 			totalPrice: totalPrice,
 		});
+		console.log('Saved order: ', order);
 	} catch (error) {
 		console.error('Error handling checkout session:', error);
 	}
