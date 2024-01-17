@@ -16,18 +16,16 @@
 	"license": "ISC",
 	"dependencies": {
 		"bcryptjs": "^2.4.3",
-		"body-parser": "^1.20.2",
-		"concurrently": "^8.2.2",
+		"concurrently": "^8.2.1",
 		"cors": "^2.8.5",
 		"dotenv": "^16.3.1",
 		"express": "^4.18.2",
 		"express-async-handler": "^1.2.0",
 		"jsonwebtoken": "^9.0.2",
-		"jwt-decode": "^4.0.0",
-		"mongoose": "^8.0.4",
-		"nodemailer": "^6.9.8",
-		"raw-body": "^2.5.2",
-		"stripe": "^14.12.0"
+		"jwt-decode": "^3.1.2",
+		"mongoose": "^7.6.0",
+		"nodemailer": "^6.9.6",
+		"stripe": "^14.1.0"
 	},
 	"devDependencies": {
 		"@babel/plugin-proposal-private-property-in-object": "^7.21.11"
