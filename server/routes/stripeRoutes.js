@@ -50,8 +50,8 @@ const stripePayment = async (req, res) => {
 			subtotal: subtotal,
 			totalPrice: total,
 		},
-		success_url: 'http://localhost:3000/success',
-		cancel_url: 'http://localhost:3000/cancel',
+		success_url: 'https://gobiz.onrender.com/success',
+		cancel_url: 'https://gobiz.onrender.com/cancel',
 	});
 
 	// const order = new Order({
