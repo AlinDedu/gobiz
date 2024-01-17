@@ -1,17 +1,16 @@
-import dotenv from 'dotenv';
-dotenv.config();
-import connectToDatabase from './db.js';
-import express, { application } from 'express';
 import cors from 'cors';
+import dotenv from 'dotenv';
+import express from 'express';
 import path from 'path';
-import { fileURLToPath } from 'url';
+import connectToDatabase from './db.js';
+dotenv.config();
 
 //Routes
-import productRoutes from './routes/productRoutes.js';
-import userRoutes from './routes/userRoutes.js';
-import stripeRoutes from './routes/stripeRoutes.js';
 import orderRoutes from './routes/orderRoutes.js';
+import productRoutes from './routes/productRoutes.js';
+import stripeRoutes from './routes/stripeRoutes.js';
 import stripeWebhookRoutes from './routes/stripeWebhookRoutes.js';
+import userRoutes from './routes/userRoutes.js';
 
 connectToDatabase();
 const app = express();
@@ -28,15 +27,10 @@ app.get('/api/config/google', (req, res) => res.send(process.env.GOOGLE_CLIENT_I
 
 const port = 5000;
 
-// Resolve the directory path
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-// Serve static files from the 'uploads' directory
+const __dirname = path.resolve();
 app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
 
-// Serve the React app in production
-if (process.env.NODE_ENV === 'production') {
+if (process.env.NODE_ENV == 'production') {
 	app.use(express.static(path.join(__dirname, '/client/build')));
 
 	app.get('*', (req, res) => res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html')));
