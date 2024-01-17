@@ -14,6 +14,7 @@ const stripeWebhookRoutes = express.Router();
 stripeWebhookRoutes.use(express.raw({ type: 'application/json' }));
 
 const handleWebhook = async (req, res) => {
+	console.log('Webhook fired');
 	const signature = req.headers['stripe-signature'];
 
 	let event;
@@ -53,6 +54,7 @@ const handleWebhook = async (req, res) => {
 };
 
 const handleCheckoutSession = async (session) => {
+	console.log('Handle checkout session');
 	const checkoutSession = await stripe.checkout.sessions.retrieve(session.id, {
 		expand: ['line_items'],
 	});
