@@ -17,7 +17,7 @@ const deleteOrder = asyncHandler(async (req, res) => {
 	if (order) {
 		res.json(order);
 	} else {
-		res.status(404);
+		res.status(404).send('Order not found.');
 		throw new Error('Order not found.');
 	}
 });
@@ -30,7 +30,7 @@ const setDelivered = asyncHandler(async (req, res) => {
 		const updatedOrder = await order.save();
 		res.json(updatedOrder);
 	} else {
-		res.status(404);
+		res.status(404).send('Order could not be updated');
 		throw new Error('Order could not be updated');
 	}
 });
