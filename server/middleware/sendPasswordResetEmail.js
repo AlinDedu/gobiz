@@ -10,7 +10,7 @@ export const sendPasswordResetEmail = (token, email, name) => {
         <body>
           <h3>Dear ${name}</h3>
              <p>Please click on the link below to reset your password.</p>
-             <a href="http://localhost:3000/password-reset/${token}">Click here!</a>
+             <a href="https://gobiz.onrender.com/password-reset/${token}">Click here!</a>
         </body>
     </html>`;
 
