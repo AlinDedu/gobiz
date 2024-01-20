@@ -22,7 +22,6 @@ import ConfirmRemovalAlert from './ConfirmRemovalAlert';
 const ProductTableItem = ({ product }) => {
 	const cancelRef = useRef();
 	const { isOpen, onOpen, onClose } = useDisclosure();
-	const [brand, setBrand] = useState(product.brand);
 	const [name, setName] = useState(product.name);
 	const [category, setCategory] = useState(product.category);
 	const [stock, setStock] = useState(product.stock);
@@ -32,13 +31,13 @@ const ProductTableItem = ({ product }) => {
 	const [subtitle, setSubtitle] = useState(product.subtitle);
 	const [imageOne, setImageOne] = useState(product.images[0]);
 	const [imageTwo, setImageTwo] = useState(product.images[1]);
+	const [imageThree, setImageThree] = useState(product.images[2]);
 	const [stripeId, setStripeId] = useState(product.stripeId);
 	const dispatch = useDispatch();
 
 	const onSaveProduct = () => {
 		dispatch(
 			updateProduct(
-				brand,
 				name,
 				category,
 				stock,
@@ -49,7 +48,8 @@ const ProductTableItem = ({ product }) => {
 				subtitle,
 				stripeId,
 				imageOne,
-				imageTwo
+				imageTwo,
+				imageThree
 			)
 		);
 	};
@@ -65,6 +65,7 @@ const ProductTableItem = ({ product }) => {
 					<Flex direction='column' gap='2'>
 						<Input size='sm' value={imageOne} onChange={(e) => setImageOne(e.target.value)} />
 						<Input size='sm' value={imageTwo} onChange={(e) => setImageTwo(e.target.value)} />
+						<Input size='sm' value={imageThree} onChange={(e) => setImageThree(e.target.value)} />
 					</Flex>
 				</Td>
 				<Td>
@@ -78,7 +79,6 @@ const ProductTableItem = ({ product }) => {
 				</Td>
 				<Td>
 					<Flex direction='column' gap='2'>
-						<Input placeholder='Brand' size='sm' value={brand} onChange={(e) => setBrand(e.target.value)} />
 						<Input placeholder='Name' size='sm' value={name} onChange={(e) => setName(e.target.value)} />
 					</Flex>
 				</Td>

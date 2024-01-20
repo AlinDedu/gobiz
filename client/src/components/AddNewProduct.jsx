@@ -20,7 +20,6 @@ import { uploadProduct } from '../redux/actions/adminActions';
 
 const AddNewProduct = () => {
 	const dispatch = useDispatch();
-	const [brand, setBrand] = useState('');
 	const [name, setName] = useState('');
 	const [category, setCategory] = useState('');
 	const [stock, setStock] = useState('');
@@ -29,20 +28,20 @@ const AddNewProduct = () => {
 	const [description, setDescription] = useState('');
 	const [imageOne, setImageOne] = useState('');
 	const [imageTwo, setImageTwo] = useState('');
+	const [imageThree, setImageThree] = useState('');
 	const [subtitle, setSubtitle] = useState('');
 	const [stripeId, setStripeId] = useState('');
 
 	const createNewProduct = () => {
 		dispatch(
 			uploadProduct({
-				brand,
 				name,
 				category,
 				stock,
 				price,
 				stripeId,
 				subtitle,
-				images: [`/images/${imageOne}`, `images/${imageTwo}`],
+				images: [imageOne, imageTwo, imageThree],
 				productIsNew,
 				description,
 			})
@@ -51,7 +50,6 @@ const AddNewProduct = () => {
 	};
 
 	const formReset = () => {
-		setBrand('');
 		setName('');
 		setCategory('');
 		setStock('');
@@ -67,23 +65,33 @@ const AddNewProduct = () => {
 	return (
 		<Tr>
 			<Td>
-				<Text fontSize='sm'>Image File Name 1</Text>
-				<Tooltip label={'Set the name of your first image e.g., iPhone.jpg'} fontSize='sm'>
+				<Text fontSize='sm'>Imgur Image Name</Text>
+				<Tooltip label={'Set the name of your first image e.g., https://i.imgur.com/rw47KJv.jpg'} fontSize='sm'>
 					<Input
 						size='sm'
 						value={imageOne}
 						onChange={(e) => setImageOne(e.target.value)}
-						placeholder='e.g., iPhone.jpg'
+						placeholder='e.g., https://i.imgur.com/rw47KJv.jpg'
 					/>
 				</Tooltip>
 				<Spacer />
-				<Text fontSize='sm'>Image File Name 2</Text>
-				<Tooltip label={'Set the name of your second image e.g., iPhone.jpg'} fontSize='sm'>
+				<Text fontSize='sm'>Imgur Image Name</Text>
+				<Tooltip label={'Set the name of your second image e.g., https://i.imgur.com/rw47KJv.jpg'} fontSize='sm'>
 					<Input
 						size='sm'
 						value={imageTwo}
 						onChange={(e) => setImageTwo(e.target.value)}
-						placeholder='e.g., iPhone.jpg'
+						placeholder='e.g., https://i.imgur.com/rw47KJv.jpg'
+					/>
+				</Tooltip>
+				<Spacer />
+				<Text fontSize='sm'>Imgur Image Name</Text>
+				<Tooltip label={'Set the name of your third image e.g., https://i.imgur.com/rw47KJv.jpg'} fontSize='sm'>
+					<Input
+						size='sm'
+						value={imageThree}
+						onChange={(e) => setImageThree(e.target.value)}
+						placeholder='e.g., https://i.imgur.com/rw47KJv.jpg'
 					/>
 				</Tooltip>
 			</Td>
@@ -101,8 +109,6 @@ const AddNewProduct = () => {
 				/>
 			</Td>
 			<Td>
-				<Text fontSize='sm'>Brand</Text>
-				<Input size='sm' value={brand} onChange={(e) => setBrand(e.target.value)} placeholder='Apple or Samsung etc.' />
 				<Text fontSize='sm'>Name</Text>
 				<Input size='sm' value={name} onChange={(e) => setName(e.target.value)} placeholder='Samsung S23' />
 			</Td>

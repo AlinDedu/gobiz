@@ -86,7 +86,7 @@ const ProductsTab = () => {
 							<Tr>
 								<Th>Images</Th>
 								<Th>Description</Th>
-								<Th>Brand & Name</Th>
+								<Th> Name</Th>
 								<Th>Stripe ID & Subtitle</Th>
 								<Th>Category & Price</Th>
 								<Th>Stock & new Badge</Th>

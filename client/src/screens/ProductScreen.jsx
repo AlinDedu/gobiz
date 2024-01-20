@@ -116,7 +116,7 @@ const ProductScreen = () => {
 									</Badge>
 								)}
 								<Heading fontSize='2xl' fontWeight='extrabold'>
-									{product.brand} {product.name}
+									{product.name}
 								</Heading>
 								<Stack spacing='5'>
 									<Box>
@@ -136,8 +136,8 @@ const ProductScreen = () => {
 											</Text>
 										</Flex>
 									</Box>
-									<Text>{product.subtitle}</Text>
 									<Text>{product.description}</Text>
+									<Text>{product.subtitle}</Text>
 									<Text fontWeight='bold'>Quantity</Text>
 									<Flex w='170px' p='5px' border='1px' borderColor='gray.200' alignItems='center'>
 										<Button isDisabled={amount <= 1} onClick={() => changeAmount('minus')}>
@@ -181,18 +181,9 @@ const ProductScreen = () => {
 								</Stack>
 							</Stack>
 							<Flex direction='column' align='center' flex='1'>
-								<Image
-									mb='30px'
-									src={product.images[0]}
-									alt={product.name}
-									fallbackSrc='https://via.placeholder.com/250'
-								/>
-								<Image
-									mb='30px'
-									src={product.images[1]}
-									alt={product.name}
-									fallbackSrc='https://via.placeholder.com/250'
-								/>
+								{product.images.map((image) => (
+									<Image mb='30px' src={image} alt={product.name} fallbackSrc='https://via.placeholder.com/250' />
+								))}
 							</Flex>
 						</Stack>
 

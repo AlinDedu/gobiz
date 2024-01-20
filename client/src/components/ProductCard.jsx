@@ -51,7 +51,7 @@ const ProductCard = ({ product, loading }) => {
 				<Image
 					onMouseEnter={() => setIsShown(true)}
 					onMouseLeave={() => setIsShown(false)}
-					src={product.images[isShown && product.images.length === 2 ? 1 : 0]}
+					src={product.images[isShown && product.images.length > 1 ? 1 : 0]}
 					fallbackSrc='https://via.placeholder.com/150'
 					alt={product.name}
 					height='200px'
@@ -70,10 +70,10 @@ const ProductCard = ({ product, loading }) => {
 					</Badge>
 				)}
 				<Text noOfLines={1} fontSize='xl' fontWeight='semibold' mt='2'>
-					{product.brand} {` `} {product.name}
+					{product.name}
 				</Text>
 				<Text noOfLines={1} fontSize='md' color='gray.600'>
-					{product.subtitle}
+					{product.description}
 				</Text>
 				<Flex justify='space-between' alignItems='center' mt='2'>
 					<Badge colorScheme='cyan'>{product.category}</Badge>

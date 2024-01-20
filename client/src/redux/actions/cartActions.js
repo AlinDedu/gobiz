@@ -12,7 +12,7 @@ export const addCartItem = (id, qty) => async (dispatch) => {
 			image: data.images[0],
 			price: data.price,
 			stock: data.stock,
-			brand: data.brand,
+
 			qty,
 			stripeId: data.stripeId,
 		};
