@@ -73,7 +73,7 @@ const ProductCard = ({ product, loading }) => {
 					{product.name}
 				</Text>
 				<Text noOfLines={1} fontSize='md' color='gray.600'>
-					{product.description}
+					{product.subtitle}
 				</Text>
 				<Flex justify='space-between' alignItems='center' mt='2'>
 					<Badge colorScheme='cyan'>{product.category}</Badge>

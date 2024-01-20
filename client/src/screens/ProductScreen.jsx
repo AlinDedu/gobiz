@@ -137,7 +137,7 @@ const ProductScreen = () => {
 										</Flex>
 									</Box>
 									<Text>{product.description}</Text>
-									<Text>{product.subtitle}</Text>
+
 									<Text fontWeight='bold'>Quantity</Text>
 									<Flex w='170px' p='5px' border='1px' borderColor='gray.200' alignItems='center'>
 										<Button isDisabled={amount <= 1} onClick={() => changeAmount('minus')}>
