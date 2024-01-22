@@ -61,7 +61,8 @@ const YourOrdersScreen = () => {
 									<Th>Order Date</Th>
 									<Th>Paid Total</Th>
 									<Th>Items</Th>
-									<Th> Status</Th>
+									<Th>Shipping Address</Th>
+									<Th>Status</Th>
 									<Th>Print Receipt</Th>
 								</Tr>
 							</Thead>
@@ -91,6 +92,28 @@ const YourOrdersScreen = () => {
 													</ListItem>
 												</UnorderedList>
 											))}
+										</Td>
+										<Td>
+											<Text>
+												<span style={{ display: 'block', wordWrap: 'break-word', maxWidth: '200px' }}>
+													<i>Address: </i> {order.shippingAddress.address}
+												</span>
+											</Text>
+											<Text>
+												<span style={{ display: 'block', wordWrap: 'break-word', maxWidth: '200px' }}>
+													<i>County: </i> {order.shippingAddress.county}
+												</span>
+											</Text>
+											<Text>
+												<span style={{ display: 'block', wordWrap: 'break-word', maxWidth: '200px' }}>
+													<i>City: </i> {order.shippingAddress.postalCode} , {order.shippingAddress.city}
+												</span>
+											</Text>
+											<Text>
+												<span style={{ display: 'block', wordWrap: 'break-word', maxWidth: '200px' }}>
+													<i>Country: </i> {order.shippingAddress.country}
+												</span>
+											</Text>
 										</Td>
 										<Td>
 											{order.isDelivered ? (

@@ -221,7 +221,6 @@ export const removeReview = (productId, reviewId) => async (dispatch, getState) 
 	} = getState();
 
 	const config = { headers: { Authorization: `Bearer ${userInfo.token}`, 'Content-Type': 'application/json' } };
-	console.log('asdfdsaf');
 	try {
 		const { data } = await axios.put(`api/products/${productId}/${reviewId}`, {}, config);
 		dispatch(setProducts(data));

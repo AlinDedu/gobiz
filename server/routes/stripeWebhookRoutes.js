@@ -41,6 +41,8 @@ const handleWebhook = async (req, res) => {
 };
 
 const handleCheckoutSession = async (session) => {
+	console.log('Handling Checkout Session. Session ID: ', session.id);
+	console.log('Metadata: ', session.metadata);
 	const checkoutSession = await stripe.checkout.sessions.retrieve(session.id, {
 		expand: ['line_items'],
 	});
@@ -60,6 +62,7 @@ const handleCheckoutSession = async (session) => {
 
 		const shippingAddress = {
 			address: session.metadata.shippingAddress,
+			county: session.metadata.shippingCounty,
 			city: session.metadata.shippingCity,
 			postalCode: session.metadata.shippingPostalCode,
 			country: session.metadata.shippingCountry,

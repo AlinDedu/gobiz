@@ -14,7 +14,7 @@ import {
 	Flex,
 	Icon,
 } from '@chakra-ui/react';
-import { FaGithub, FaLinkedin, FaFacebook } from 'react-icons/fa';
+import { FaGithub, FaLinkedin, FaFacebook, FaInstagram } from 'react-icons/fa';
 import { GiPresent } from 'react-icons/gi';
 import { storeName } from '../constants';
 
@@ -38,7 +38,7 @@ const Footer = () => (
 					</Text>
 				</Stack>
 				<Stack direction={{ base: 'column-reverse', md: 'column', lg: 'row' }} spacing={{ base: '12', md: '8' }}>
-					<Stack direction='row' spacing='8'>
+					{/* <Stack direction='row' spacing='8'>
 						<Stack spacing='4' minW='36' flex='1'>
 							<Text fontSize='sm' fontWeight='semibold' color='subtle'>
 								Product
@@ -58,7 +58,7 @@ const Footer = () => (
 								<Button variant='link'>License</Button>
 							</Stack>
 						</Stack>
-					</Stack>
+					</Stack> */}
 					<Stack spacing='4'>
 						<Text fontSize='sm' fontWeight='semibold' color='subtle'>
 							Stay up to date
@@ -78,9 +78,16 @@ const Footer = () => (
 					&copy; {new Date().getFullYear()} GoBiz, Inc. All rights reserved.
 				</Text>
 				<ButtonGroup variant='ghost'>
-					<IconButton as='a' href='#' icon={<FaLinkedin fontSize='1.25rem' />} />
+					<IconButton
+						as='a'
+						href='https://www.instagram.com/gobiz_romania/'
+						target='_blank'
+						rel='noopener noreferrer'
+						icon={<FaInstagram fontSize='1.25rem' />}
+					/>
+					{/* <IconButton as='a' href='#' icon={<FaLinkedin fontSize='1.25rem' />} />
 					<IconButton as='a' href='#' icon={<FaGithub fontSize='1.25rem' />} />
-					<IconButton as='a' href='#' icon={<FaFacebook fontSize='1.25rem' />} />
+					<IconButton as='a' href='#' icon={<FaFacebook fontSize='1.25rem' />} /> */}
 				</ButtonGroup>
 			</Stack>
 		</Container>

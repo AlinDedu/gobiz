@@ -3,8 +3,6 @@ dotenv.config();
 
 import express from 'express';
 import Stripe from 'stripe';
-import Order from '../models/Order.js';
-import Product from '../models/Product.js';
 import { protectRoute } from '../middleware/authMiddleware.js';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
@@ -28,8 +26,6 @@ const stripePayment = async (req, res) => {
 		lineItems.push({ price: item.stripeId, quantity: item.qty });
 	});
 
-	console.log(data.userInfo._id);
-
 	const session = await stripe.checkout.sessions.create({
 		line_items: lineItems,
 		shipping_options: [
@@ -43,6 +39,7 @@ const stripePayment = async (req, res) => {
 			username: data.userInfo.name,
 			email: data.userInfo.email,
 			shippingAddress: data.shippingAddress.address,
+			shippingCounty: data.shippingAddress.county,
 			shippingCity: data.shippingAddress.city,
 			shippingPostalCode: data.shippingAddress.postalCode,
 			shippingCountry: data.shippingAddress.country,
@@ -53,25 +50,6 @@ const stripePayment = async (req, res) => {
 		success_url: 'https://gobiz.onrender.com/success',
 		cancel_url: 'https://gobiz.onrender.com/cancel',
 	});
-
-	// const order = new Order({
-	// 	orderItems: data.cartItems,
-	// 	user: data.userInfo._id,
-	// 	username: data.userInfo.name,
-	// 	email: data.userInfo.email,
-	// 	shippingAddress: data.shippingAddress,
-	// 	shippingPrice: shipping,
-	// 	subtotal: subtotal,
-	// 	totalPrice: total,
-	// });
-
-	// const newOrder = await order.save();
-
-	// data.cartItems.forEach(async (cartItem) => {
-	// 	let product = await Product.findById(cartItem.id);
-	// 	product.stock = product.stock - cartItem.qty;
-	// 	product.save();
-	// });
 
 	res.send(
 		JSON.stringify({

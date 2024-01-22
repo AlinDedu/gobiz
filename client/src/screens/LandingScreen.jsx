@@ -28,7 +28,8 @@ const LandingScreen = () => (
 				<Stack spacing={{ base: '8', lg: '10' }}>
 					<Stack spacing={{ base: '2', lg: '4' }}>
 						<Heading size='xl' fontWeight='normal'>
-							Find the perfect gift
+							This website is in test mode. The accounts, orders or reviews created wont be stored for later, the
+							payment is also a simulation and none of the charges simulated will reflect in your bank account.
 						</Heading>
 					</Stack>
 					<HStack spacing='3'>

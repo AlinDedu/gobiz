@@ -28,6 +28,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getAllOrders, deleteOrder, resetErrorAndRemoval, setDelivered } from '../redux/actions/adminActions';
 import ConfirmRemovalAlert from './ConfirmRemovalAlert';
 import { TbTruckDelivery } from 'react-icons/tb';
+import { currency } from '../constants';
 
 const OrdersTab = () => {
 	const { isOpen, onOpen, onClose } = useDisclosure();
@@ -64,7 +65,6 @@ const OrdersTab = () => {
 	const onSetToDelivered = (order) => {
 		dispatch(resetErrorAndRemoval());
 		dispatch(setDelivered(order._id));
-		console.log('order set to delivered' + order._id);
 	};
 
 	return (
@@ -92,7 +92,7 @@ const OrdersTab = () => {
 									<Th>Date</Th>
 									<Th>Name</Th>
 									<Th>Email</Th>
-									<Th>Shipping</Th>
+									<Th>Shipping Address</Th>
 									<Th>Items Ordered</Th>
 									<Th>Total</Th>
 									<Th>Status</Th>
@@ -123,6 +123,11 @@ const OrdersTab = () => {
 												</Text>
 												<Text>
 													<span style={{ display: 'block', wordWrap: 'break-word', maxWidth: '200px' }}>
+														<i>County: </i> {order.shippingAddress.county}
+													</span>
+												</Text>
+												<Text>
+													<span style={{ display: 'block', wordWrap: 'break-word', maxWidth: '200px' }}>
 														<i>City: </i> {order.shippingAddress.postalCode} {order.shippingAddress.city}
 													</span>
 												</Text>
@@ -139,7 +144,9 @@ const OrdersTab = () => {
 													</Text>
 												))}
 											</Td>
-											<Td>$ {order.totalPrice}</Td>
+											<Td>
+												{currency} {order.totalPrice}
+											</Td>
 											<Td>
 												{order.isDelivered ? (
 													<Badge variant='outline' colorScheme='green'>

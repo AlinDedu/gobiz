@@ -111,7 +111,6 @@ const updateProduct = asyncHandler(async (req, res) => {
 		imageTwo,
 		imageThree,
 	} = req.body;
-	console.log(stripeId);
 
 	const product = await Product.findById(id);
 

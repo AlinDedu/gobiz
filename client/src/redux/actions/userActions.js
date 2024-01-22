@@ -118,7 +118,6 @@ export const resetPassword = (password, token) => async (dispatch) => {
 		const config = { headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' } };
 
 		const { data, status } = await axios.post(`/api/users/password-reset`, { password }, config);
-		console.log(data, status);
 		dispatch(setServerResponseMsg(data, status));
 		dispatch(setServerResponseStatus(status));
 	} catch (error) {

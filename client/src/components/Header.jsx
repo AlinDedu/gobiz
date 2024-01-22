@@ -4,6 +4,7 @@ import {
 	AlertDescription,
 	AlertIcon,
 	AlertTitle,
+	Badge,
 	Box,
 	Divider,
 	Flex,
@@ -44,9 +45,9 @@ import NavLink from './NavLink';
 
 const Links = [
 	{ name: 'Products', route: '/products' },
-	{ name: 'Hot Deals', route: '/hot-deals' },
-	{ name: 'Contact', route: '/contact' },
-	{ name: 'Services', route: '/services' },
+	// { name: 'Hot Deals', route: '/hot-deals' },
+	// { name: 'Contact', route: '/contact' },
+	// { name: 'Services', route: '/services' },
 ];
 
 const Header = () => {
@@ -157,6 +158,9 @@ const Header = () => {
 										opacity={1} // Set opacity to full when not disabled
 									/>
 								))}
+							<Badge fontSize='1em' variant='subtle' colorScheme='red'>
+								TEST MODE
+							</Badge>
 						</HStack>
 					</HStack>
 					<Flex alignItems='center'>
