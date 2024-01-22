@@ -1,30 +1,30 @@
 import {
-	TableContainer,
-	Stack,
-	Spinner,
 	Alert,
-	AlertIcon,
 	AlertDescription,
+	AlertIcon,
 	AlertTitle,
-	Th,
-	Tbody,
-	Tr,
-	Thead,
-	Button,
-	ListItem,
-	UnorderedList,
-	Table,
-	Td,
-	Wrap,
 	Badge,
+	Button,
+	Flex,
+	ListItem,
+	Spinner,
+	Stack,
+	Table,
+	TableContainer,
+	Tbody,
+	Td,
 	Text,
+	Th,
+	Thead,
+	Tr,
+	UnorderedList,
+	Wrap,
 } from '@chakra-ui/react';
-import { useDispatch, useSelector } from 'react-redux';
-import { getUserOrders } from '../redux/actions/userActions';
 import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Navigate, useLocation } from 'react-router-dom';
 import { currency } from '../constants';
-import { LuReceipt } from 'react-icons/lu';
+import { getUserOrders } from '../redux/actions/userActions';
 
 const YourOrdersScreen = () => {
 	const dispatch = useDispatch();
@@ -96,6 +96,16 @@ const YourOrdersScreen = () => {
 										<Td>
 											<Text>
 												<span style={{ display: 'block', wordWrap: 'break-word', maxWidth: '200px' }}>
+													<i>Recipient: </i> {order.shippingAddress.recipientName}
+												</span>
+											</Text>
+											<Text>
+												<span style={{ display: 'block', wordWrap: 'break-word', maxWidth: '200px' }}>
+													<i>Phone: </i> {order.shippingAddress.phoneNumber}
+												</span>
+											</Text>
+											<Text>
+												<span style={{ display: 'block', wordWrap: 'break-word', maxWidth: '200px' }}>
 													<i>Address: </i> {order.shippingAddress.address}
 												</span>
 											</Text>
@@ -127,9 +137,11 @@ const YourOrdersScreen = () => {
 											)}
 										</Td>
 										<Td>
-											<Button variant='outline'>
-												<Text ml='2'>Receipt</Text>
-											</Button>
+											<Flex direction='column'>
+												<Button variant='outline' colorScheme='blue'>
+													<Text ml='2'>Receipt</Text>
+												</Button>
+											</Flex>
 										</Td>
 									</Tr>
 								))}

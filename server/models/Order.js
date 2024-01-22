@@ -30,6 +30,8 @@ const orderSchema = new mongoose.Schema(
 			},
 		],
 		shippingAddress: {
+			recipientName: { type: String, required: true },
+			phoneNumber: { type: String, required: true },
 			address: { type: String, required: true },
 			county: { type: String, required: true },
 			city: { type: String, required: true },

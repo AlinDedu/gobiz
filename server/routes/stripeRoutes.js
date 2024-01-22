@@ -16,6 +16,7 @@ stripeRoutes.use(express.json());
 
 const stripePayment = async (req, res) => {
 	const data = req.body;
+	console.log(data);
 	const shipping = Number(data.shipping);
 	const subtotal = Number(data.subtotal);
 	const total = Number(shipping + subtotal).toFixed(2);
@@ -38,6 +39,8 @@ const stripePayment = async (req, res) => {
 			userId: data.userInfo._id,
 			username: data.userInfo.name,
 			email: data.userInfo.email,
+			recipientName: data.shippingAddress.recipientName,
+			phoneNumber: data.shippingAddress.phoneNumber,
 			shippingAddress: data.shippingAddress.address,
 			shippingCounty: data.shippingAddress.county,
 			shippingCity: data.shippingAddress.city,
@@ -47,8 +50,14 @@ const stripePayment = async (req, res) => {
 			subtotal: subtotal,
 			totalPrice: total,
 		},
+
+		// live links
 		success_url: 'https://gobiz.onrender.com/success',
 		cancel_url: 'https://gobiz.onrender.com/cancel',
+
+		// local links
+		// success_url: 'http://localhost:3000/success',
+		// cancel_url: 'http://localhost:3000/cancel',
 	});
 
 	res.send(

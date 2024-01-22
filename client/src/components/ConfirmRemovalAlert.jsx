@@ -1,11 +1,11 @@
 import {
-	Button,
 	AlertDialog,
+	AlertDialogBody,
 	AlertDialogContent,
 	AlertDialogFooter,
-	AlertDialogBody,
 	AlertDialogHeader,
 	AlertDialogOverlay,
+	Button,
 } from '@chakra-ui/react';
 import { useDispatch } from 'react-redux';
 

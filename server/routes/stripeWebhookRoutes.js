@@ -61,6 +61,8 @@ const handleCheckoutSession = async (session) => {
 		const totalPrice = session.metadata.totalPrice;
 
 		const shippingAddress = {
+			recipientName: session.metadata.recipientName,
+			phoneNumber: session.metadata.phoneNumber,
 			address: session.metadata.shippingAddress,
 			county: session.metadata.shippingCounty,
 			city: session.metadata.shippingCity,

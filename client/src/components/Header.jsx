@@ -42,6 +42,8 @@ import { toggleFavorites } from '../redux/actions/productActions';
 import { logout } from '../redux/actions/userActions';
 import ColorModeToggle from './ColorModeToggle';
 import NavLink from './NavLink';
+import { currency } from '../constants.js';
+import { freeShippingThreshold } from '../constants.js';
 
 const Links = [
 	{ name: 'Products', route: '/products' },
@@ -86,6 +88,11 @@ const Header = () => {
 		});
 	};
 
+	const getRemainingAmount = () => {
+		const cartTotal = cartItems.reduce((total, item) => total + parseInt(item.qty, 10) * parseInt(item.price, 10), 0);
+		return freeShippingThreshold - cartTotal;
+	};
+
 	return (
 		<>
 			<Box bg={mode(`cyan.300`, 'gray.900')} px='4'>
@@ -106,8 +113,8 @@ const Header = () => {
 							variant='ghost'
 						/>
 						{cartItems.length > 0 && (
-							<Text fontWeight='bold' fontStyle='italic' position='absolute' ml='74px' mt='-6' fontSize='sm'>
-								{cartItems.length}
+							<Text fontWeight='bold' fontStyle='italic' position='absolute' ml='76px' mt='-6' fontSize='sm'>
+								{cartItems.reduce((totalQty, item) => totalQty + parseInt(item.qty), 0)}
 							</Text>
 						)}
 					</Flex>
@@ -129,9 +136,29 @@ const Header = () => {
 							<Box>
 								<IconButton icon={<TbShoppingCart size='20px' />} as={ReactLink} to='/cart' variant='ghost' />
 								{cartItems.length > 0 && (
-									<Text fontWeight='bold' fontStyle='italic' position='absolute' ml='26px' mt='-6' fontSize='sm'>
-										{cartItems.length}
+									<Text fontWeight='bold' fontStyle='italic' position='absolute' ml='30px' mt='-10' fontSize='sm'>
+										{cartItems.reduce((totalQty, item) => totalQty + parseInt(item.qty), 0)}
 									</Text>
+								)}
+							</Box>
+							<Box>
+								{cartItems.length > 0 && (
+									<Badge
+										ml='2'
+										fontSize='sm'
+										variant='subtle'
+										colorScheme={getRemainingAmount() > 0 ? 'yellow' : 'green'}>
+										{getRemainingAmount() > 0 ? (
+											<Flex direction='column' align='center'>
+												{getRemainingAmount() > 0 && <Text>Free shipping in:</Text>}
+												<Text>
+													{getRemainingAmount() > 0 ? `${currency} ${getRemainingAmount()}` : 'Free shipping'}
+												</Text>
+											</Flex>
+										) : (
+											'Free shipping'
+										)}
+									</Badge>
 								)}
 							</Box>
 
@@ -256,12 +283,14 @@ const Header = () => {
 									onClick={() => dispatch(toggleFavorites(false))}
 									icon={<MdOutlineFavorite size='20px' />}
 									variant='ghost'
+									isDisabled={isFavoritesEmpty}
 								/>
 							) : (
 								<IconButton
 									onClick={() => dispatch(toggleFavorites(true))}
 									icon={<MdOutlineFavoriteBorder size='20px' />}
 									variant='ghost'
+									isDisabled={isFavoritesEmpty}
 								/>
 							)}
 							<ColorModeToggle />

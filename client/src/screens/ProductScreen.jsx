@@ -230,10 +230,11 @@ const ProductScreen = () => {
 											onChange={(e) => {
 												setComment(e.target.value);
 											}}
-											placeholder={`The ${product.brand} ${product.name} is...`}
+											placeholder={`The ${product.name} is...`}
 										/>
 										<Button
 											isLoading={loading}
+											isDisabled={comment === ''}
 											loadingText='Saving'
 											w='140px'
 											colorScheme='cyan'

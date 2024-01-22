@@ -118,6 +118,16 @@ const OrdersTab = () => {
 											<Td>
 												<Text>
 													<span style={{ display: 'block', wordWrap: 'break-word', maxWidth: '200px' }}>
+														<i>Recipient: </i> {order.shippingAddress.recipientName}
+													</span>
+												</Text>
+												<Text>
+													<span style={{ display: 'block', wordWrap: 'break-word', maxWidth: '200px' }}>
+														<i>Phone: </i> {order.shippingAddress.phoneNumber}
+													</span>
+												</Text>
+												<Text>
+													<span style={{ display: 'block', wordWrap: 'break-word', maxWidth: '200px' }}>
 														<i>Address: </i> {order.shippingAddress.address}
 													</span>
 												</Text>

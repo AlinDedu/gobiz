@@ -84,6 +84,8 @@ const ShippingInformation = () => {
 	return (
 		<Formik
 			initialValues={{
+				recipientName: shippingAddress ? shippingAddress.recipientName : '',
+				phoneNumber: shippingAddress ? shippingAddress.phoneNumber : '',
 				address: shippingAddress ? shippingAddress.address : '',
 				county: shippingAddress ? shippingAddress.county : '',
 				city: shippingAddress ? shippingAddress.city : '',
@@ -91,6 +93,10 @@ const ShippingInformation = () => {
 				country: 'Romania',
 			}}
 			validationSchema={Yup.object({
+				recipientName: Yup.string().required('Please provide recipient name.'),
+				phoneNumber: Yup.string()
+					.required('Please provide a phone number.')
+					.matches(/^[0-9]{10}$/, 'Invalid phone number. Use only digits and exactly 10 characters.'),
 				address: Yup.string().required('We need an address.').min(10, 'This address is too short.'),
 				city: Yup.string().required('We need an county.').min(4, 'This city is too short.'),
 				postalCode: Yup.string().required('We need an postal code.').min(6, 'This postal code is too short.'),
@@ -101,6 +107,14 @@ const ShippingInformation = () => {
 			{(formik) => (
 				<>
 					<VStack as='form'>
+						<Flex>
+							<FormControl flex='2' mr='10'>
+								<TextField name='recipientName' placeholder='Recipient Name' label='Recipient Name' />
+							</FormControl>
+							<FormControl flex='2' mr='10'>
+								<TextField name='phoneNumber' placeholder='Phone Number' label='Phone Number' type='tel' />
+							</FormControl>
+						</Flex>
 						<FormControl>
 							<TextField name='address' placeholder='Street Address & Number' label='Street Address' />
 							<Flex>
