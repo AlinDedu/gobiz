@@ -1,4 +1,4 @@
-import { ChevronDownIcon, CloseIcon, HamburgerIcon } from '@chakra-ui/icons';
+import { ChevronDownIcon, CloseIcon, HamburgerIcon, MoonIcon, SunIcon } from '@chakra-ui/icons';
 import {
 	Alert,
 	AlertDescription,
@@ -6,6 +6,7 @@ import {
 	AlertTitle,
 	Badge,
 	Box,
+	Button,
 	Divider,
 	Flex,
 	HStack,
@@ -24,6 +25,7 @@ import {
 	useColorModeValue as mode,
 	useDisclosure,
 	useToast,
+	useColorMode,
 } from '@chakra-ui/react';
 import { googleLogout } from '@react-oauth/google';
 import React, { useEffect, useState } from 'react';
@@ -44,6 +46,7 @@ import ColorModeToggle from './ColorModeToggle';
 import NavLink from './NavLink';
 import { currency } from '../constants.js';
 import { freeShippingThreshold } from '../constants.js';
+import { FaShoppingBag } from 'react-icons/fa';
 
 const Links = [
 	{ name: 'Products', route: '/products' },
@@ -54,6 +57,7 @@ const Links = [
 
 const Header = () => {
 	const { isOpen, onOpen, onClose } = useDisclosure();
+	const { colorMode, toggleColorMode } = useColorMode();
 	const dispatch = useDispatch();
 	const toast = useToast();
 	const { favoritesToggled } = useSelector((state) => state.product);
@@ -150,9 +154,9 @@ const Header = () => {
 										colorScheme={getRemainingAmount() > 0 ? 'yellow' : 'green'}>
 										{getRemainingAmount() > 0 ? (
 											<Flex direction='column' align='center'>
-												{getRemainingAmount() > 0 && <Text>Free shipping in:</Text>}
+												<Text>Free shipping in:</Text>
 												<Text>
-													{getRemainingAmount() > 0 ? `${currency} ${getRemainingAmount()}` : 'Free shipping'}
+													{currency} {getRemainingAmount()}
 												</Text>
 											</Flex>
 										) : (
@@ -272,28 +276,69 @@ const Header = () => {
 					{isOpen && (
 						<Box pb='4' display={{ md: 'none' }}>
 							<Stack as='nav' spacing='4'>
-								{Links.map((link) => (
-									<NavLink route={link.route} key={link.route}>
-										<Text fontWeight='medium'>{link.name}</Text>
-									</NavLink>
-								))}
+								<Box>
+									{Links.map((link) => (
+										<NavLink route={link.route} key={link.route}>
+											<HStack>
+												<FaShoppingBag />
+												<Text fontWeight='medium'>{link.name}</Text>
+											</HStack>
+										</NavLink>
+									))}
+								</Box>
+								<Box>
+									{favoritesToggled ? (
+										<HStack spacing='1'>
+											<Button
+												onClick={() => dispatch(toggleFavorites(false))}
+												isDisabled={isFavoritesEmpty}
+												ml='-3'
+												variant='ghost'
+												rounded='md'>
+												<MdOutlineFavorite size='20px' />
+												<Text fontWeight='medium' ml='2'>
+													Favorites
+												</Text>
+											</Button>
+										</HStack>
+									) : (
+										<HStack>
+											<Button
+												onClick={() => dispatch(toggleFavorites(true))}
+												isDisabled={isFavoritesEmpty}
+												ml='-3'
+												variant='ghost'
+												rounded='md'>
+												<MdOutlineFavoriteBorder size='20px' />
+												<Text fontWeight='medium' ml='2'>
+													Favorites
+												</Text>
+											</Button>
+										</HStack>
+									)}
+								</Box>
+								<Box>
+									<HStack>
+										<Button onClick={toggleColorMode} ml='-3' rounded='md' variant='ghost'>
+											{colorMode === 'dark' ? (
+												<>
+													<SunIcon />
+													<Text fontWeight='medium' ml='2'>
+														Light Mode
+													</Text>
+												</>
+											) : (
+												<>
+													<MoonIcon />
+													<Text fontWeight='medium' ml='2'>
+														Dark Mode
+													</Text>
+												</>
+											)}
+										</Button>
+									</HStack>
+								</Box>
 							</Stack>
-							{favoritesToggled ? (
-								<IconButton
-									onClick={() => dispatch(toggleFavorites(false))}
-									icon={<MdOutlineFavorite size='20px' />}
-									variant='ghost'
-									isDisabled={isFavoritesEmpty}
-								/>
-							) : (
-								<IconButton
-									onClick={() => dispatch(toggleFavorites(true))}
-									icon={<MdOutlineFavoriteBorder size='20px' />}
-									variant='ghost'
-									isDisabled={isFavoritesEmpty}
-								/>
-							)}
-							<ColorModeToggle />
 						</Box>
 					)}
 				</Box>
@@ -309,6 +354,22 @@ const Header = () => {
 					</Alert>
 				</Box>
 			)}
+			<Box display={{ base: 'block', md: 'none' }} mt='4' textAlign='center'>
+				{cartItems.length > 0 && (
+					<Badge fontSize='sm' variant='subtle' colorScheme={getRemainingAmount() > 0 ? 'yellow' : 'green'}>
+						{getRemainingAmount() > 0 ? (
+							<Flex direction='column' align='center'>
+								<Text>Free shipping in:</Text>
+								<Text>
+									{currency} {getRemainingAmount()}
+								</Text>
+							</Flex>
+						) : (
+							'Free shipping'
+						)}
+					</Badge>
+				)}
+			</Box>
 		</>
 	);
 };

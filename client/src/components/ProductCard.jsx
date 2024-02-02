@@ -1,4 +1,4 @@
-import { Box, Image, Text, Badge, Flex, IconButton, Skeleton, useToast, Tooltip } from '@chakra-ui/react';
+import { Box, Image, Text, Badge, Flex, IconButton, Skeleton, useToast, Tooltip, HStack } from '@chakra-ui/react';
 import { BiExpand } from 'react-icons/bi';
 import React, { useState } from 'react';
 import { addToFavorites, removeFromFavorites } from '../redux/actions/productActions';
@@ -9,6 +9,7 @@ import { addCartItem } from '../redux/actions/cartActions';
 import { useEffect } from 'react';
 import { TbShoppingCartPlus } from 'react-icons/tb';
 import { currency } from '../constants';
+import Star from './Star';
 
 const ProductCard = ({ product, loading }) => {
 	const dispatch = useDispatch();
@@ -57,6 +58,26 @@ const ProductCard = ({ product, loading }) => {
 					height='200px'
 					roundedTop='8'
 				/>
+				<Flex justify='space-between'>
+					{product.numberOfReviews > 0 ? (
+						<>
+							<HStack spacing='2px'>
+								<Star color='cyan.500' />
+								<Star rating={product.rating} star={2} />
+								<Star rating={product.rating} star={3} />
+								<Star rating={product.rating} star={4} />
+								<Star rating={product.rating} star={5} />
+							</HStack>
+							<Text fontSize='md' fontWeight='bold' ml='4px'>
+								{product.numberOfReviews} Reviews
+							</Text>
+						</>
+					) : (
+						<Text fontSize='md' fontWeight='bold' ml='4px'>
+							No reviews yet
+						</Text>
+					)}
+				</Flex>
 				{product.stock < 1 ? (
 					<Badge colorScheme='red'>Sold out</Badge>
 				) : product.stock < 5 ? (

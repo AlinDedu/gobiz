@@ -7,6 +7,8 @@ import Stripe from 'stripe';
 import Order from '../models/Order.js';
 import Product from '../models/Product.js';
 
+import { sendOrderPlacedEmail } from '../middleware/sendOrderPlacedEmail.js';
+
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
 
@@ -101,6 +103,7 @@ const handleCheckoutSession = async (session) => {
 			totalPrice: totalPrice,
 		});
 		await order.save();
+		sendOrderPlacedEmail(userEmail, username);
 		console.log('Saved order: ', order);
 	} catch (error) {
 		console.error('Error handling checkout session:', error);

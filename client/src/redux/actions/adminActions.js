@@ -99,7 +99,7 @@ export const deleteOrder = (id) => async (dispatch, getState) => {
 	}
 };
 
-export const setDelivered = (id) => async (dispatch, getState) => {
+export const setDelivered = (id, awbNumber) => async (dispatch, getState) => {
 	setLoading();
 	const {
 		user: { userInfo },
@@ -108,7 +108,7 @@ export const setDelivered = (id) => async (dispatch, getState) => {
 	const config = { headers: { Authorization: `Bearer ${userInfo.token}`, 'Content-Type': 'application/json' } };
 
 	try {
-		await axios.put(`api/orders/${id}`, {}, config);
+		await axios.put(`api/orders/${id}`, { awbNumber }, config);
 		dispatch(setDeliveredFlag());
 	} catch (error) {
 		setError(

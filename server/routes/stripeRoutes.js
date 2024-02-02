@@ -4,6 +4,7 @@ dotenv.config();
 import express from 'express';
 import Stripe from 'stripe';
 import { protectRoute } from '../middleware/authMiddleware.js';
+import { freeShippingThreshold } from '../constants.js';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
@@ -17,8 +18,9 @@ stripeRoutes.use(express.json());
 const stripePayment = async (req, res) => {
 	const data = req.body;
 	console.log(data);
-	const shipping = Number(data.shipping);
-	const subtotal = Number(data.subtotal);
+	const subtotal = Number(data.subtotal).toFixed(2);
+	const shipping = subtotal > freeShippingThreshold ? 0 : Number(data.shipping).toFixed(2);
+
 	const total = Number(shipping + subtotal).toFixed(2);
 
 	let lineItems = [];
@@ -27,11 +29,13 @@ const stripePayment = async (req, res) => {
 		lineItems.push({ price: item.stripeId, quantity: item.qty });
 	});
 
+	const shippingRateId = subtotal > freeShippingThreshold ? process.env.STRIPE_FREE_SHIPPING_ID : STRIPE_SHIPPING_ID;
+
 	const session = await stripe.checkout.sessions.create({
 		line_items: lineItems,
 		shipping_options: [
 			{
-				shipping_rate: process.env.STRIPE_SHIPPING_ID,
+				shipping_rate: shippingRateId,
 			},
 		],
 		mode: 'payment',

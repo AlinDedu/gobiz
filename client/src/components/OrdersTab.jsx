@@ -1,39 +1,41 @@
+import { DeleteIcon } from '@chakra-ui/icons';
 import {
-	Box,
-	TableContainer,
-	Th,
-	Tr,
-	Table,
-	Td,
-	Thead,
-	Tbody,
-	Text,
-	Button,
-	useDisclosure,
 	Alert,
-	Stack,
-	Spinner,
+	AlertDescription,
 	AlertIcon,
 	AlertTitle,
-	AlertDescription,
-	Wrap,
-	useToast,
-	Flex,
 	Badge,
-	useColorModeValue as mode,
+	Box,
+	Button,
+	Flex,
+	Spinner,
+	Stack,
+	Table,
+	TableContainer,
+	Tbody,
+	Td,
+	Text,
+	Th,
+	Thead,
+	Tr,
+	useDisclosure,
+	useToast,
+	Wrap,
 } from '@chakra-ui/react';
-import { CheckCircleIcon, DeleteIcon } from '@chakra-ui/icons';
-import { useEffect, useState, useRef } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { getAllOrders, deleteOrder, resetErrorAndRemoval, setDelivered } from '../redux/actions/adminActions';
-import ConfirmRemovalAlert from './ConfirmRemovalAlert';
+import { useEffect, useRef, useState } from 'react';
 import { TbTruckDelivery } from 'react-icons/tb';
+import { useDispatch, useSelector } from 'react-redux';
 import { currency } from '../constants';
+import { deleteOrder, getAllOrders, resetErrorAndRemoval, setDelivered } from '../redux/actions/adminActions';
+import ConfirmRemovalAlert from './ConfirmRemovalAlert';
+import DeliveryConfirmationAlert from './DeliveryConfirmationAlert';
 
 const OrdersTab = () => {
-	const { isOpen, onOpen, onClose } = useDisclosure();
+	const { isOpen: deleteAlertOpen, onOpen: openDeleteAlert, onClose: closeDeleteAlert } = useDisclosure();
+	const { isOpen: deliveryAlertOpen, onOpen: openDeliveryAlert, onClose: closeDeliveryAlert } = useDisclosure();
 	const cancelRef = useRef();
 	const [orderToDelete, setOrderToDelete] = useState('');
+	const [orderToDeliver, setOrderToDeliver] = useState('');
 	const dispatch = useDispatch();
 	const { error, loading, orders, deliveredFlag, orderRemoval } = useSelector((state) => state.admin);
 	const toast = useToast();
@@ -59,12 +61,18 @@ const OrdersTab = () => {
 
 	const openDeleteConfirmBox = (order) => {
 		setOrderToDelete(order);
-		onOpen();
+		openDeleteAlert();
 	};
 
-	const onSetToDelivered = (order) => {
+	const openDeliveryConfirmBox = (order) => {
+		setOrderToDeliver(order);
+		openDeliveryAlert();
+	};
+
+	const onSetToDelivered = (order, awbNumber) => {
+		console.log(order);
 		dispatch(resetErrorAndRemoval());
-		dispatch(setDelivered(order._id));
+		dispatch(setDelivered(order._id, awbNumber));
 	};
 
 	return (
@@ -179,9 +187,9 @@ const OrdersTab = () => {
 															colorScheme='green'
 															mt='4px'
 															variant='outline'
-															onClick={() => onSetToDelivered(order)}>
+															onClick={() => openDeliveryConfirmBox(order)}>
 															<TbTruckDelivery />
-															<Text ml='5px'>Delivered</Text>
+															<Text ml='5px'>Set Delivered</Text>
 														</Button>
 													)}
 												</Flex>
@@ -192,12 +200,19 @@ const OrdersTab = () => {
 						</Table>
 					</TableContainer>
 					<ConfirmRemovalAlert
-						isOpen={isOpen}
-						onOpen={onOpen}
-						onClose={onClose}
+						isOpen={deleteAlertOpen}
+						onOpen={openDeleteAlert}
+						onClose={closeDeleteAlert}
 						cancelRef={cancelRef}
 						itemToDelete={orderToDelete}
 						deleteAction={deleteOrder}
+					/>
+					<DeliveryConfirmationAlert
+						isOpen={deliveryAlertOpen}
+						onClose={closeDeliveryAlert}
+						onConfirmDelivery={onSetToDelivered}
+						cancelRef={cancelRef}
+						order={orderToDeliver}
 					/>
 				</Box>
 			)}

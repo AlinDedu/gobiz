@@ -2,11 +2,12 @@ import { Button, Flex, Heading, Stack, Text, useColorModeValue as mode } from '@
 import { FaArrowRight } from 'react-icons/fa';
 import { useSelector } from 'react-redux';
 import { Link as ReactLink } from 'react-router-dom';
-import { currency } from '../constants';
+import { currency, freeShippingThreshold } from '../constants';
 
-const OrderSummary = ({ checkoutSreen = false }) => {
+const OrderSummary = ({ checkoutScreen = false }) => {
 	const { subtotal, shipping } = useSelector((state) => state.cart);
-
+	const formattedSubtotal = parseFloat(subtotal).toFixed(2);
+	const formattedTotal = (parseFloat(subtotal) + parseFloat(shipping)).toFixed(2);
 	return (
 		<Stack
 			minWidth='300px'
@@ -23,28 +24,26 @@ const OrderSummary = ({ checkoutSreen = false }) => {
 						Subtotal
 					</Text>
 					<Text fontWeight='medium'>
-						{currency} {subtotal}
+						{currency} {formattedSubtotal}
 					</Text>
 				</Flex>
 				<Flex justify='space-between'>
 					<Text fontWeight='medium' color={mode('gray.600', 'gray.400')}>
 						Shipping
 					</Text>
-					<Text fontWeight='medium'>
-						{currency} {shipping}
-					</Text>
+					<Text fontWeight='medium'>{subtotal < freeShippingThreshold ? `${currency} ${shipping}` : 'FREE'}</Text>
 				</Flex>
 				<Flex justify='space-between'>
 					<Text fontSize='xl' fontWeight='extrabold'>
 						Total
 					</Text>
 					<Text fontWeight='medium'>
-						{currency} {Number(subtotal) + Number(shipping)}
+						{currency} {formattedTotal}
 					</Text>
 				</Flex>
 			</Stack>
 			<Button
-				hidden={checkoutSreen}
+				hidden={checkoutScreen}
 				as={ReactLink}
 				to='/checkout'
 				colorScheme='cyan'

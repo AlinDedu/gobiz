@@ -23,10 +23,12 @@ const deleteOrder = asyncHandler(async (req, res) => {
 });
 
 const setDelivered = asyncHandler(async (req, res) => {
+	const { awbNumber } = req.body;
 	const order = await Order.findById(req.params.id);
 
 	if (order) {
 		order.isDelivered = true;
+		order.awbNumber = awbNumber;
 		const updatedOrder = await order.save();
 		res.json(updatedOrder);
 	} else {

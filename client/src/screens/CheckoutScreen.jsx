@@ -25,7 +25,7 @@ const CheckoutScreen = () => {
 					</Stack>
 				</Stack>
 				<Flex direction='column' align='center' flex='1'>
-					<OrderSummary checkoutSreen={true} />
+					<OrderSummary checkoutScreen={true} />
 				</Flex>
 			</Stack>
 		</Box>
