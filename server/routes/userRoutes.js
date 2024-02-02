@@ -150,11 +150,9 @@ const googleLogin = asyncHandler(async (req, res) => {
 				email,
 				googleImage,
 				googleId,
+				active: true,
 			});
 
-			const newToken = genToken(newUser._id);
-
-			sendVerificationEmail(newToken, newUser.email, newUser.name, newUser._id);
 			res.json({
 				_id: newUser._id,
 				name: newUser.name,

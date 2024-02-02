@@ -2,6 +2,7 @@ import express from 'express';
 import asyncHandler from 'express-async-handler';
 import Order from '../models/Order.js';
 import { admin, protectRoute } from '../middleware/authMiddleware.js';
+import { sendShippedOrderEmail } from '../middleware/sendShippedOrderEmail.js';
 
 const orderRoutes = express.Router();
 orderRoutes.use(express.json());
@@ -29,6 +30,8 @@ const setDelivered = asyncHandler(async (req, res) => {
 	if (order) {
 		order.isDelivered = true;
 		order.awbNumber = awbNumber;
+		order.deliveredAt = new Date();
+		sendShippedOrderEmail(order);
 		const updatedOrder = await order.save();
 		res.json(updatedOrder);
 	} else {
