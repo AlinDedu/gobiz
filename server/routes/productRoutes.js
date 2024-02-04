@@ -3,6 +3,7 @@ import Product from '../models/Product.js';
 import { protectRoute, admin } from '../middleware/authMiddleware.js';
 import asyncHandler from 'express-async-handler';
 import User from '../models/User.js';
+import Order from '../models/Order.js';
 
 const productRoutes = express.Router();
 productRoutes.use(express.json());
@@ -41,6 +42,12 @@ const createProductReview = asyncHandler(async (req, res) => {
 	const product = await Product.findById(req.params.id);
 	const user = await User.findById(userId);
 
+	const order = await Order.findOne({
+		user: userId,
+		'orderItems.product': req.params.id,
+		delivered: true,
+	});
+
 	if (product) {
 		const alreadyReviewed = product.reviews.find((review) => review.user.toString() === user._id.toString());
 
@@ -56,6 +63,11 @@ const createProductReview = asyncHandler(async (req, res) => {
 			title,
 			user: user._id,
 		};
+
+		if(!order) {
+			res.status(400).send('You can only review products that you have ordered and received')
+			return;
+		}
 
 		product.reviews.push(review);
 

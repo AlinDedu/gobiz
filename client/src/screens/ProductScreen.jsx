@@ -30,6 +30,7 @@ import { addCartItem } from '../redux/actions/cartActions';
 import Star from '../components/Star';
 import { createProductReview } from '../redux/actions/productActions';
 import { currency } from '../constants';
+import { getUserOrders } from '../redux/actions/userActions';
 
 const ProductScreen = () => {
 	const [amount, setAmount] = useState(1);
@@ -42,7 +43,7 @@ const ProductScreen = () => {
 	const [rating, setRating] = useState(1);
 	const [title, setTitle] = useState('');
 	const [reviewBoxOpen, setReviewBoxOpen] = useState(false);
-	const { userInfo } = useSelector((state) => state.user);
+	const { userInfo, orders } = useSelector((state) => state.user);
 	const [buttonLoading, setButtonLoading] = useState(false);
 
 	useEffect(() => {
@@ -54,6 +55,12 @@ const ProductScreen = () => {
 			setReviewBoxOpen(false);
 		}
 	}, [dispatch, id, toast, reviewed]);
+
+	useEffect(() => {
+		if (userInfo) {
+			dispatch(getUserOrders());
+		}
+	}, [dispatch, userInfo]);
 
 	const changeAmount = (input) => {
 		if (input === 'plus') {
@@ -79,6 +86,15 @@ const ProductScreen = () => {
 	};
 
 	const hasUserReviewed = () => product.reviews.some((item) => item.user === userInfo._id);
+
+	const hasUserOrderedAndReceived = () => {
+		return (
+			userInfo && orders?.some((order) => order?.orderItems?.some((item) => item?.id === id && order?.isDelivered))
+		);
+	};
+
+	console.log(hasUserOrderedAndReceived());
+
 	const onSubmit = () => {
 		setButtonLoading(true);
 		dispatch(createProductReview(product._id, userInfo._id, comment, rating, title));
@@ -191,7 +207,7 @@ const ProductScreen = () => {
 							<>
 								<Tooltip label={hasUserReviewed() && 'You have already reviewed this product'} fontSize='medium'>
 									<Button
-										isDisabled={hasUserReviewed()}
+										isDisabled={hasUserReviewed() || !hasUserOrderedAndReceived()}
 										my='20px'
 										w='140px'
 										colorScheme='cyan'
@@ -199,6 +215,13 @@ const ProductScreen = () => {
 										Write a review
 									</Button>
 								</Tooltip>
+								{!hasUserOrderedAndReceived() && (
+									<Tooltip
+										lavel='You can write a review only if you have ordered and received the product'
+										fontSize='medium'>
+										<Text color='red.500'>You need to have the item ordered and delivered to write a review.</Text>
+									</Tooltip>
+								)}
 								{reviewBoxOpen && (
 									<Stack mb='20px'>
 										<Wrap>
