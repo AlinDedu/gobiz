@@ -12,7 +12,9 @@ export const setPayment = () => async (dispatch, getState) => {
 		user: { userInfo },
 	} = getState();
 
-	const newOrder = { subtotal, shipping, shippingAddress, cartItems, userInfo };
+	const total = subtotal + shipping;
+
+	const newOrder = { subtotal, shipping, shippingAddress, cartItems, userInfo, total };
 
 	try {
 		const config = { headers: { Authorization: `Bearer ${userInfo.token}`, 'Content-Type': 'application/json' } };

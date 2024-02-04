@@ -1,14 +1,63 @@
-import { Button, Flex, Heading, Stack, Text, useColorModeValue as mode } from '@chakra-ui/react';
+import { CloseIcon } from '@chakra-ui/icons';
+import {
+	Alert,
+	AlertDescription,
+	AlertIcon,
+	AlertTitle,
+	Button,
+	Flex,
+	Heading,
+	Spacer,
+	Stack,
+	Text,
+	useColorModeValue as mode,
+	VStack,
+} from '@chakra-ui/react';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 import { FaArrowRight } from 'react-icons/fa';
-import { useSelector } from 'react-redux';
-import { Link as ReactLink } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { currency, freeShippingThreshold } from '../constants';
+import { updateCartItemsInDB } from '../redux/actions/cartActions';
 
 const OrderSummary = ({ checkoutScreen = false }) => {
-	const { subtotal, shipping } = useSelector((state) => state.cart);
+	const { subtotal, shipping, cartItems, cartItemsInDB } = useSelector((state) => state.cart);
 	const formattedShipping = subtotal < freeShippingThreshold ? shipping.toFixed(2) : 0;
 	const formattedSubtotal = parseFloat(subtotal).toFixed(2);
 	const formattedTotal = (parseFloat(subtotal) + parseFloat(formattedShipping)).toFixed(2);
+	const [showStockAlert, setShowStockAlert] = useState(false);
+	const navigate = useNavigate();
+	const dispatch = useDispatch();
+
+	const handleCheckout = async () => {
+		try {
+			const products = await Promise.all(
+				cartItems.map(async (cartItem) => {
+					const { data } = await axios.get(`/api/products/${cartItem.id}`);
+					return {
+						...data,
+						qty: cartItem.qty,
+					};
+				})
+			);
+
+			// Dispatch the action to update cartItemsInDB immediately
+			dispatch(updateCartItemsInDB(products));
+
+			// Check if the checkout is valid
+			const isValidCheckout = products.every((item) => item.qty <= item.stock);
+
+			if (isValidCheckout) {
+				setShowStockAlert(false);
+				navigate('/checkout');
+			} else {
+				setShowStockAlert(true);
+			}
+		} catch (error) {
+			console.error('Error updating CartItemsInDB state:', error);
+		}
+	};
 	return (
 		<Stack
 			minWidth='300px'
@@ -45,13 +94,28 @@ const OrderSummary = ({ checkoutScreen = false }) => {
 			</Stack>
 			<Button
 				hidden={checkoutScreen}
-				as={ReactLink}
-				to='/checkout'
+				onClick={() => {
+					handleCheckout();
+				}}
 				colorScheme='cyan'
 				size='lg'
 				rightIcon={<FaArrowRight />}>
 				Checkout
 			</Button>
+			{showStockAlert && (
+				<Alert status='error' marginTop='4'>
+					<AlertIcon />
+					<VStack align='start'>
+						<AlertTitle>Invalid Checkout</AlertTitle>
+						<AlertDescription>
+							Some items in your cart have quantities greater than the available stock.
+						</AlertDescription>
+						<AlertDescription>Please update your quantities.</AlertDescription>
+					</VStack>
+					<Spacer />
+					<CloseIcon cursor={'pointer'} onClick={() => setShowStockAlert(false)} />
+				</Alert>
+			)}
 		</Stack>
 	);
 };

@@ -1,27 +1,25 @@
 import {
+	Alert,
+	AlertDescription,
+	AlertIcon,
+	AlertTitle,
 	Box,
 	Flex,
 	Heading,
 	HStack,
 	Link,
+	Spinner,
 	Stack,
 	useColorModeValue as mode,
-	Spinner,
-	Alert,
-	AlertIcon,
-	AlertDescription,
 	Wrap,
-	AlertTitle,
 } from '@chakra-ui/react';
-import { Link as ReactLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { Link as ReactLink } from 'react-router-dom';
 import CartItem from '../components/CartItem';
 import OrderSummary from '../components/OrderSummary';
 
 const CartScreen = () => {
 	const { loading, error, cartItems } = useSelector((state) => state.cart);
-
-	const getHeadingContent = () => (cartItems.length === 1 ? '(1 Item)' : `(${cartItems.length} Items)`);
 
 	return (
 		<Wrap spacing='30px' justify='center' minHeight='100vh'>

@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { shippingRate } from '../../constants';
+import { freeShippingThreshold, shippingRate } from '../../constants';
 
 const calculateSubtotal = (cartState) => {
 	let result = 0;
@@ -11,6 +11,7 @@ export const initialState = {
 	loading: false,
 	error: null,
 	cartItems: JSON.parse(localStorage.getItem('cartItems')) ?? [],
+	cartItemsInDB: [],
 	shipping: JSON.parse(localStorage.getItem('shipping')) ?? Number(shippingRate),
 	subtotal: localStorage.getItem('cartItems') ? calculateSubtotal(JSON.parse(localStorage.getItem('cartItems'))) : 0,
 };
@@ -43,11 +44,13 @@ export const cartSlice = createSlice({
 			state.error = null;
 			updateLocalStorage(state.cartItems);
 			state.subtotal = Number(calculateSubtotal(state.cartItems));
+			state.shipping = state.subtotal > freeShippingThreshold ? 0 : shippingRate;
 		},
 		cartItemRemoval: (state, { payload }) => {
 			state.cartItems = [...state.cartItems].filter((item) => item.id !== payload);
 			updateLocalStorage(state.cartItems);
 			state.subtotal = calculateSubtotal(state.cartItems);
+			state.shipping = state.subtotal > freeShippingThreshold ? 0 : shippingRate;
 			state.loading = false;
 			state.error = null;
 		},
@@ -65,10 +68,16 @@ export const cartSlice = createSlice({
 			state.loading = false;
 			state.error = null;
 		},
+		setCartItemsInDB: (state, { payload }) => {
+			state.cartItemsInDB = payload;
+			state.loading = false;
+			state.error = null;
+		},
 	},
 });
 
-export const { setError, setLoading, cartItemAdd, cartItemRemoval, setShippingCosts, clearCart } = cartSlice.actions;
+export const { setError, setLoading, cartItemAdd, cartItemRemoval, setShippingCosts, clearCart, setCartItemsInDB } =
+	cartSlice.actions;
 export default cartSlice.reducer;
 
 export const cartSelector = (state) => state.cart;

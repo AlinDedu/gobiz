@@ -21,7 +21,11 @@ const stripePayment = async (req, res) => {
 	const subtotal = Number(data.subtotal).toFixed(2);
 	const shipping = subtotal > freeShippingThreshold ? 0 : Number(data.shipping).toFixed(2);
 
-	const total = Number(shipping + subtotal).toFixed(2);
+	const total = data.total.toFixed(2);
+
+	console.log('Subtotal:', data.subtotal, typeof data.subtotal);
+	console.log('Shipping:', data.shipping, typeof data.shipping);
+	console.log('Total:', total);
 
 	let lineItems = [];
 
@@ -29,7 +33,8 @@ const stripePayment = async (req, res) => {
 		lineItems.push({ price: item.stripeId, quantity: item.qty });
 	});
 
-	const shippingRateId = subtotal > freeShippingThreshold ? process.env.STRIPE_FREE_SHIPPING_ID : STRIPE_SHIPPING_ID;
+	const shippingRateId =
+		subtotal > freeShippingThreshold ? process.env.STRIPE_FREE_SHIPPING_ID : process.env.STRIPE_SHIPPING_ID;
 
 	const session = await stripe.checkout.sessions.create({
 		line_items: lineItems,
@@ -56,12 +61,12 @@ const stripePayment = async (req, res) => {
 		},
 
 		// live links
-		// success_url: 'https://gobiz.onrender.com/success',
-		// cancel_url: 'https://gobiz.onrender.com/cancel',
+		success_url: 'https://gobiz.onrender.com/success',
+		cancel_url: 'https://gobiz.onrender.com/cancel',
 
 		// local links
-		success_url: 'http://localhost:3000/success',
-		cancel_url: 'http://localhost:3000/cancel',
+		// success_url: 'http://localhost:3000/success',
+		// cancel_url: 'http://localhost:3000/cancel',
 	});
 
 	res.send(
