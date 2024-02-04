@@ -6,8 +6,9 @@ import { currency, freeShippingThreshold } from '../constants';
 
 const OrderSummary = ({ checkoutScreen = false }) => {
 	const { subtotal, shipping } = useSelector((state) => state.cart);
+	const formattedShipping = subtotal < freeShippingThreshold ? shipping.toFixed(2) : 0;
 	const formattedSubtotal = parseFloat(subtotal).toFixed(2);
-	const formattedTotal = (parseFloat(subtotal) + parseFloat(shipping)).toFixed(2);
+	const formattedTotal = (parseFloat(subtotal) + parseFloat(formattedShipping)).toFixed(2);
 	return (
 		<Stack
 			minWidth='300px'
@@ -31,7 +32,7 @@ const OrderSummary = ({ checkoutScreen = false }) => {
 					<Text fontWeight='medium' color={mode('gray.600', 'gray.400')}>
 						Shipping
 					</Text>
-					<Text fontWeight='medium'>{subtotal < freeShippingThreshold ? `${currency} ${shipping}` : 'FREE'}</Text>
+					<Text fontWeight='medium'>{formattedShipping > 0 ? `${currency} ${formattedShipping}` : 'FREE'}</Text>
 				</Flex>
 				<Flex justify='space-between'>
 					<Text fontSize='xl' fontWeight='extrabold'>

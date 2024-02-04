@@ -56,17 +56,16 @@ const stripePayment = async (req, res) => {
 		},
 
 		// live links
-		success_url: 'https://gobiz.onrender.com/success',
-		cancel_url: 'https://gobiz.onrender.com/cancel',
+		// success_url: 'https://gobiz.onrender.com/success',
+		// cancel_url: 'https://gobiz.onrender.com/cancel',
 
 		// local links
-		// success_url: 'http://localhost:3000/success',
-		// cancel_url: 'http://localhost:3000/cancel',
+		success_url: 'http://localhost:3000/success',
+		cancel_url: 'http://localhost:3000/cancel',
 	});
 
 	res.send(
 		JSON.stringify({
-			// orderId: newOrder._id.toString(),
 			url: session.url,
 		})
 	);

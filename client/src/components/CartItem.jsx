@@ -41,7 +41,7 @@ const CartItem = ({ cartItem }) => {
 								</Text>
 							</>
 						)}
-						{currency} {price * qty}
+						{currency} {(price * qty).toFixed(2)}
 					</Text>
 				</Flex>
 			</VStack>
