@@ -28,8 +28,8 @@ const LandingScreen = () => (
 				<Stack spacing={{ base: '8', lg: '10' }}>
 					<Stack spacing={{ base: '2', lg: '4' }}>
 						<Heading size='xl' fontWeight='normal'>
-							This website is in test mode. The accounts, orders or reviews created wont be stored for later, the
-							payment is also a simulation and none of the charges simulated will reflect in your bank account.
+							Descoperă colecția noastră exclusivă de cadouri de Valentine's Day - surprizele perfecte pentru a celebra
+							dragostea. Alege emoții în loc de cuvinte, oferind cadouri memorabile de la noi.
 						</Heading>
 					</Stack>
 					<HStack spacing='3'>

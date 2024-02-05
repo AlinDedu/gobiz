@@ -178,13 +178,13 @@ const ProductScreen = () => {
 										<Flex alignItems='center'>
 											<BiPackage size='20px' />
 											<Text fontWeight='medium' fontSize='sm' ml='2'>
-												Shipped in 2 - 3 days
+												Shipped in 3-5 days
 											</Text>
 										</Flex>
 										<Flex alignItems='center'>
 											<BiCheckShield size='20px' />
 											<Text fontWeight='medium' fontSize='sm' ml='2'>
-												2 year extended warranty
+												Secure payments
 											</Text>
 										</Flex>
 										<Flex alignItems='center'>
