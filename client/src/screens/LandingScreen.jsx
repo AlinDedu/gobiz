@@ -28,7 +28,7 @@ const LandingScreen = () => (
 				<Stack spacing={{ base: '8', lg: '10' }}>
 					<Stack spacing={{ base: '2', lg: '4' }}>
 						<Heading size='xl' fontWeight='normal'>
-							Cadouri de Valentine's Day: dragoste într-un clic!
+							Cherished Surprises: Infuse Love with Every Click!
 						</Heading>
 					</Stack>
 					<HStack spacing='3'>
