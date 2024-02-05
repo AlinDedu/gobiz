@@ -77,7 +77,7 @@ const Footer = () => (
 				<Text fontSize='sm' color='subtle'>
 					&copy; {new Date().getFullYear()} GoBiz, Inc. All rights reserved.
 				</Text>
-				<ButtonGroup variant='ghost'>
+				{/* <ButtonGroup variant='ghost'>
 					<IconButton
 						as='a'
 						href='https://www.instagram.com/gobiz_romania/'
@@ -85,10 +85,10 @@ const Footer = () => (
 						rel='noopener noreferrer'
 						icon={<FaInstagram fontSize='1.25rem' />}
 					/>
-					{/* <IconButton as='a' href='#' icon={<FaLinkedin fontSize='1.25rem' />} />
+					<IconButton as='a' href='#' icon={<FaLinkedin fontSize='1.25rem' />} />
 					<IconButton as='a' href='#' icon={<FaGithub fontSize='1.25rem' />} />
-					<IconButton as='a' href='#' icon={<FaFacebook fontSize='1.25rem' />} /> */}
-				</ButtonGroup>
+					<IconButton as='a' href='#' icon={<FaFacebook fontSize='1.25rem' />} />
+				</ButtonGroup> */}
 			</Stack>
 		</Container>
 	</Box>

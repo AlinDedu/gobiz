@@ -28,8 +28,7 @@ const LandingScreen = () => (
 				<Stack spacing={{ base: '8', lg: '10' }}>
 					<Stack spacing={{ base: '2', lg: '4' }}>
 						<Heading size='xl' fontWeight='normal'>
-							Descoperă colecția noastră exclusivă de cadouri de Valentine's Day - surprizele perfecte pentru a celebra
-							dragostea. Alege emoții în loc de cuvinte, oferind cadouri memorabile de la noi.
+							Cadouri de Valentine's Day: dragoste într-un clic!
 						</Heading>
 					</Stack>
 					<HStack spacing='3'>
