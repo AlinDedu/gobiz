@@ -80,7 +80,7 @@ const ProductCard = ({ product, loading }) => {
 				</Flex>
 				{product.stock < 1 ? (
 					<Badge colorScheme='red'>Sold out</Badge>
-				) : product.stock < 5 ? (
+				) : product.stock < 2 ? (
 					<Badge colorScheme='yellow'>only {product.stock} left</Badge>
 				) : (
 					<Badge colorScheme='green'>In Stock</Badge>

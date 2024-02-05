@@ -1,0 +1,13 @@
+/* For tablets and larger screens */
+@media (min-width: 768px) {
+	.mySwiper {
+		padding: 50px;
+	}
+}
+
+/* For mobile devices */
+@media (max-width: 767px) {
+	.mySwiper {
+		padding: 20px; /* Adjust the padding for mobile devices */
+	}
+}

@@ -7,11 +7,26 @@ import {
 	Badge,
 	Box,
 	Button,
-	Flex, Heading, HStack, Image, Input, SimpleGrid,
+	Flex,
+	Heading,
+	HStack,
+	Image,
+	Input,
+	SimpleGrid,
 	Spinner,
 	Stack,
-	Text, Textarea, Tooltip, useToast, Wrap
+	Text,
+	Textarea,
+	Tooltip,
+	useToast,
+	Wrap,
 } from '@chakra-ui/react';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/effect-coverflow';
+import 'swiper/css/pagination';
+import '../styles.css';
+import { EffectCoverflow, Pagination } from 'swiper/modules';
 import { useEffect, useState } from 'react';
 import { BiCheckShield, BiPackage, BiSupport } from 'react-icons/bi';
 import { useDispatch, useSelector } from 'react-redux';
@@ -83,8 +98,6 @@ const ProductScreen = () => {
 		);
 	};
 
-	console.log(hasUserOrderedAndReceived());
-
 	const onSubmit = () => {
 		setButtonLoading(true);
 		dispatch(createProductReview(product._id, userInfo._id, comment, rating, title));
@@ -148,6 +161,44 @@ const ProductScreen = () => {
 											</Text>
 										)}
 									</Box>
+									{/* <Flex direction='row' align='center' flex='2'>
+										{product.images.map((image) => (
+											<Image mb='30px' src={image} alt={product.name} fallbackSrc='https://via.placeholder.com/250' />
+										))}
+									</Flex> */}
+									<Swiper
+										effect={'coverflow'}
+										grabCursor={true}
+										centeredSlides={true}
+										slidesPerView={'auto'}
+										coverflowEffect={{
+											rotate: 50,
+											stretch: 0,
+											depth: 100,
+											modifier: 1,
+											slideShadows: true,
+										}}
+										pagination={true}
+										modules={[EffectCoverflow, Pagination]}
+										className='mySwiper'
+										style={{
+											width: '90%',
+											height: 'auto',
+											// maxWidth: '1200px',
+											margin: '0 auto',
+											padding: '50px 20px',
+										}}
+										flex='2'>
+										{product.images.map((image, index) => (
+											<SwiperSlide key={index}>
+												<img
+													src={image}
+													alt={`${product.name} Image ${index + 1}`}
+													style={{ display: 'block', width: '100%', height: 'auto' }}
+												/>
+											</SwiperSlide>
+										))}
+									</Swiper>
 									<Text>{product.description}</Text>
 
 									<Text fontWeight='bold'>Quantity</Text>
@@ -192,11 +243,6 @@ const ProductScreen = () => {
 									</Stack>
 								</Stack>
 							</Stack>
-							<Flex direction='column' align='center' flex='1'>
-								{product.images.map((image) => (
-									<Image mb='30px' src={image} alt={product.name} fallbackSrc='https://via.placeholder.com/250' />
-								))}
-							</Flex>
 						</Stack>
 
 						{userInfo && (
