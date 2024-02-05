@@ -4,29 +4,31 @@ import { storeName } from '../constants.js';
 const storeEmail = process.env.GMAIL_EMAIL;
 const gmailAuthPass = process.env.GMAIL_APP_PASSWORD;
 
-export const sendOrderPlacedEmail = (email, name) => {
+export const sendOrderPlacedEmail = (email, name, orderId) => {
 	const html = `
     <html>
 		<head>
 			<style>
-				a {
+				a.button{
 					display: inline-block;
 					padding: 10px 20px;
 					background-color: #009050;
 					text-decoration: none;
 					border-radius: 5px;
+					color: #fff
 				}
 
-				a:hover {
+				a.button:hover {
 					background-color: #008900
 				}
 			</style>
 		<head/>
 		<body style="font-family: 'Arial', sans-serif; background-color: #f5f5f5; color: #333; margin: 0; padding: 0; text-align: center;">
-			<h3 style="color: #007BFF;"> Dear ${name}</h3>
-			<p style="margin-bottom: 20px;">Thank you for shopping from GoBiz</p>
-			<p style="margin-bottom: 20px;">Your order will be processed soon and sent your way. You can also check your order by clicking the button below.</p>
-			<a href="https://gobiz.onrender.com/order-history" style="color: #fff">Click here!</a>
+			<h3 style="color: #007BFF;"> Buna ${name}</h3>
+			<p style="margin-bottom: 20px;">Iti multumim pentru comanda facuta la gobiz.onrender.com.</p>
+			<p style="margin-bottom: 20px;">Poti raspunde la acest email cu eventuale intrebari sau modificari la comanda. Te rugam sa nu modifici subiectul mesajului, foloseste doar butonul Reply; in caz contrar mesajul poate fi trimis eronat.</p>
+			<p style="margin-bottom: 20px;">Numar comanda: ${orderId}</p>
+			<a href="https://gobiz.onrender.com/order-history" class="button">Urmareste comanda!</a>
 		</body>
 	</html>`;
 
@@ -41,7 +43,7 @@ export const sendOrderPlacedEmail = (email, name) => {
 	const mailOptions = {
 		from: storeEmail,
 		to: email,
-		subject: `${storeName} order submited`,
+		subject: `${storeName} - Comanda Plasata`,
 		html: html,
 	};
 

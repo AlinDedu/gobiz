@@ -1,17 +1,30 @@
 import dotenv from 'dotenv';
 import nodemailer from 'nodemailer';
-import { storeName } from '../constants.js';
+import { storeName, currency } from '../constants.js';
 dotenv.config();
 
 const storeEmail = process.env.GMAIL_EMAIL;
 const gmailAuthPass = process.env.GMAIL_APP_PASSWORD;
 
+const calculateDeliveryDate = () => {
+	const currentDate = new Date();
+	const deliveryDate = new Date();
+	deliveryDate.setDate(currentDate.getDate() + 3);
+	const maxDeliveryDate = new Date();
+	maxDeliveryDate.setDate(currentDate.getDate() + 5);
+
+	return {
+		minDeliveryDate: deliveryDate.toISOString().split('T')[0],
+		maxDeliveryDate: maxDeliveryDate.toISOString().split('T')[0],
+	};
+};
+
 export const sendShippedOrderEmail = (order) => {
 	const itemsList = order.orderItems
 		.map((item) => `<li>${item.qty} x ${item.name} - $${item.price.toFixed(2)}</li>`)
 		.join('');
-
-	const awbMessage = order.awbNumber ? `<p>Your AWB number: ${order.awbNumber}</p>` : '';
+	const awbMessage = order.awbNumber ? `<p>Numar AWB: ${order.awbNumber}</p>` : '';
+	const deliveryDates = calculateDeliveryDate();
 
 	const html = `
     <html>
@@ -31,15 +44,18 @@ export const sendShippedOrderEmail = (order) => {
             </style>
         <head/>
         <body style="font-family: 'Arial', sans-serif; background-color: #f5f5f5; color: #333; margin: 0; padding: 0; text-align: center;">
-            <h3 style="color: #007BFF;"> Dear ${order.username}</h3>
-            <p style="margin-bottom: 20px;">Your order has been shipped. Thank you for shopping with ${storeName}!</p>
-            <h4>Order Details:</h4>
+            <h3 style="color: #007BFF;"> Draga ${order.username}</h3>
+            <p style="margin-bottom: 20px;">Comanda ta ${storeName} a fost predata curierului. Termen de livrare estimat intre ${
+		deliveryDates.minDeliveryDate
+	} si ${deliveryDates.maxDeliveryDate}!</p>
+            <h4>Detalii Comanda:</h4>
             <ul style="list-style-type: none; padding: 0;">
                 ${itemsList}
             </ul>
-            <p>Total Price: $${order.totalPrice.toFixed(2)}</p>
+            <p>Total: ${currency} ${order.totalPrice.toFixed(2)}</p>
             ${awbMessage}
-            <p style="margin-bottom: 20px;">You can track your order <a href="https://gobiz.onrender.com/order-history" style="color: #fff">here</a>.</p>
+            <p style="margin-bottom: 20px;">Poti verifica istoricul comenzilor tale aici:</p>
+            <a href="https://gobiz.onrender.com/order-history" style="color: #fff">Istoric comenzi</a>
         </body>
     </html>
     `;
@@ -54,8 +70,8 @@ export const sendShippedOrderEmail = (order) => {
 
 	const mailOptions = {
 		from: storeEmail,
-		to: order.email, // Assuming 'email' is the customer's email in the order object
-		subject: 'Your Order Has Been Shipped',
+		to: order.email,
+		subject: 'Comanda predata curierului',
 		html: html,
 	};
 

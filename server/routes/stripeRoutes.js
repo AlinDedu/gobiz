@@ -60,13 +60,8 @@ const stripePayment = async (req, res) => {
 			totalPrice: total,
 		},
 
-		// live links
-		success_url: 'https://gobiz.onrender.com/success',
-		cancel_url: 'https://gobiz.onrender.com/cancel',
-
-		// local links
-		// success_url: 'http://localhost:3000/success',
-		// cancel_url: 'http://localhost:3000/cancel',
+		success_url: process.env.STRIPE_SUCCESS_URL,
+		cancel_url: process.env.STRIPE_CANCEL_URL,
 	});
 
 	res.send(

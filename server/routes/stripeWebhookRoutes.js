@@ -103,7 +103,7 @@ const handleCheckoutSession = async (session) => {
 			totalPrice: totalPrice,
 		});
 		await order.save();
-		sendOrderPlacedEmail(userEmail, username);
+		sendOrderPlacedEmail(userEmail, username, order._id);
 		console.log('Saved order: ', order);
 	} catch (error) {
 		console.error('Error handling checkout session:', error);

@@ -23,10 +23,10 @@ export const sendVerificationEmail = (token, email, name) => {
 			</style>
 		<head/>
 		<body style="font-family: 'Arial', sans-serif; background-color: #f5f5f5; color: #333; margin: 0; padding: 0; text-align: center;">
-			<h3 style="color: #007BFF;"> Dear ${name}</h3>
-			<p style="margin-bottom: 20px;">Thanks for signing up at ${storeName}</p>
-			<p style="margin-bottom: 20px;">Use the link below to verify your email.</p>
-			<a href="https://gobiz.onrender.com/email-verify/${token}" style="color: #fff">Click here!</a>
+			<h3 style="color: #007BFF;"> Draga ${name}</h3>
+			<p style="margin-bottom: 20px;">Va nultumim ca v-ati inscris la ${storeName}</p>
+			<p style="margin-bottom: 20px;">Utilizati link-ul de mai jos pentru a va verifica adresa de email.</p>
+			<a href="https://gobiz.onrender.com/email-verify/${token}" style="color: #fff">Apasa aici!</a>
 		</body>
 	</html>
     `;
