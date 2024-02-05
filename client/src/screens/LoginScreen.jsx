@@ -7,24 +7,24 @@ import {
 	Button,
 	Container,
 	FormControl,
-	HStack,
 	Heading,
+	HStack,
 	Stack,
 	Text,
 	useToast,
 } from '@chakra-ui/react';
+import { useGoogleLogin } from '@react-oauth/google';
+import axios from 'axios';
 import { Formik } from 'formik';
 import { useEffect, useState } from 'react';
+import { FcGoogle } from 'react-icons/fc';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link as ReactLink, useLocation, useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import PasswordField from '../components/PasswordField';
 import PasswordForgottenForm from '../components/PasswordForgottenForm';
 import TextField from '../components/TextField';
-import { login, googleLogin } from '../redux/actions/userActions';
-import { useGoogleLogin } from '@react-oauth/google';
-import axios from 'axios';
-import { FcGoogle } from 'react-icons/fc';
+import { googleLogin, login } from '../redux/actions/userActions';
 
 const LoginScreen = () => {
 	const dispatch = useDispatch();

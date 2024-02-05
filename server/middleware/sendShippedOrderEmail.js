@@ -1,6 +1,6 @@
+import dotenv from 'dotenv';
 import nodemailer from 'nodemailer';
 import { storeName } from '../constants.js';
-import dotenv from 'dotenv';
 dotenv.config();
 
 const storeEmail = process.env.GMAIL_EMAIL;

@@ -1,8 +1,8 @@
-import { Center, Text, Box, Button } from '@chakra-ui/react';
-import { BsBoxSeamFill } from 'react-icons/bs';
-import { Link as ReactLink } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { Box, Button, Center, Text } from '@chakra-ui/react';
 import { useEffect } from 'react';
+import { BsBoxSeamFill } from 'react-icons/bs';
+import { useDispatch } from 'react-redux';
+import { Link as ReactLink } from 'react-router-dom';
 import { resetCart } from '../redux/actions/cartActions';
 
 const SuccessScreen = () => {

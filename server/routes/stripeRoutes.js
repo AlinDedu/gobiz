@@ -3,8 +3,8 @@ dotenv.config();
 
 import express from 'express';
 import Stripe from 'stripe';
-import { protectRoute } from '../middleware/authMiddleware.js';
 import { freeShippingThreshold } from '../constants.js';
+import { protectRoute } from '../middleware/authMiddleware.js';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;

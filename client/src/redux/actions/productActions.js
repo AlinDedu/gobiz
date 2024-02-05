@@ -1,16 +1,10 @@
-import {
-	setProducts,
-	setLoading,
-	setError,
-	setPagination,
-	setFavorites,
-	setFavoritesToggle,
-	setProduct,
-	productReviewed,
-	resetError,
-} from '../slices/product';
 import axios from 'axios';
 import { productsPerPage } from '../../constants';
+import {
+	productReviewed,
+	resetError, setError, setFavorites,
+	setFavoritesToggle, setLoading, setPagination, setProduct, setProducts
+} from '../slices/product';
 
 export const getProducts = (page, favouriteToggle) => async (dispatch) => {
 	dispatch(setLoading());

@@ -1,9 +1,9 @@
-import { Alert, AlertTitle, AlertIcon, AlertDescription, Box, Button, Center, Wrap, WrapItem } from '@chakra-ui/react';
+import { ArrowLeftIcon, ArrowRightIcon } from '@chakra-ui/icons';
+import { Alert, AlertDescription, AlertIcon, AlertTitle, Box, Button, Center, Wrap, WrapItem } from '@chakra-ui/react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import ProductCard from '../components/ProductCard';
 import { getProducts } from '../redux/actions/productActions';
-import { ArrowLeftIcon, ArrowRightIcon } from '@chakra-ui/icons';
 
 const ProductsScreen = () => {
 	const dispatch = useDispatch();

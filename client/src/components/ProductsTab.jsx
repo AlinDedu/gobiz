@@ -16,12 +16,12 @@ import {
 	Th,
 	Thead,
 	Tr,
-	Wrap,
 	useToast,
+	Wrap,
 } from '@chakra-ui/react';
-import ProductTableItem from '../components/ProductTableItem';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import ProductTableItem from '../components/ProductTableItem';
 import { getProducts, resetProductError } from '../redux/actions/productActions';
 import AddNewProduct from './AddNewProduct';
 

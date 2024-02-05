@@ -9,11 +9,9 @@ import {
 	Skeleton,
 	Stack,
 	useColorModeValue as mode,
-	Text,
 } from '@chakra-ui/react';
 import { FaArrowRight } from 'react-icons/fa';
 import { Link as ReactLink } from 'react-router-dom';
-import { GiPresent } from 'react-icons/gi';
 
 const LandingScreen = () => (
 	<Box maxW='8xl' mx='auto' p={{ base: '0', lg: '12' }}>

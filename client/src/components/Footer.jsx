@@ -1,20 +1,11 @@
 import {
-	Button,
-	ButtonGroup,
+	Box, ButtonGroup,
 	Container,
-	Divider,
-	IconButton,
-	Input,
-	Image,
-	Stack,
-	Skeleton,
-	Text,
-	useColorModeValue as mode,
-	Box,
-	Flex,
-	Icon,
+	Divider, Flex,
+	Icon, IconButton, Stack, Text,
+	useColorModeValue as mode
 } from '@chakra-ui/react';
-import { FaGithub, FaLinkedin, FaFacebook, FaInstagram } from 'react-icons/fa';
+import { FaInstagram } from 'react-icons/fa';
 import { GiPresent } from 'react-icons/gi';
 import { storeName } from '../constants';
 

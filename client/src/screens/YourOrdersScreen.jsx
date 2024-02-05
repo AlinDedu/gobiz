@@ -18,7 +18,7 @@ import {
 	Thead,
 	Tr,
 	UnorderedList,
-	Wrap,
+	Wrap
 } from '@chakra-ui/react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';

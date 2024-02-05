@@ -1,20 +1,22 @@
 import {
-	Tr,
-	Td,
+	Badge,
 	Button,
-	VStack,
+	FormControl,
+	FormLabel,
+	HStack,
+	IconButton,
+	Input,
+	Stack,
+	Switch,
+	Td,
+	Text,
 	Textarea,
 	Tooltip,
-	Input,
-	FormControl,
-	Switch,
-	FormLabel,
-	Text,
-	Badge,
-	Spacer,
+	Tr,
+	VStack,
 } from '@chakra-ui/react';
 import { useState } from 'react';
-import { MdDriveFolderUpload } from 'react-icons/md';
+import { MdClose, MdDriveFolderUpload } from 'react-icons/md';
 import { useDispatch } from 'react-redux';
 import { uploadProduct } from '../redux/actions/adminActions';
 
@@ -26,11 +28,24 @@ const AddNewProduct = () => {
 	const [price, setPrice] = useState('');
 	const [productIsNew, setProductIsNew] = useState(true);
 	const [description, setDescription] = useState('');
-	const [imageOne, setImageOne] = useState('');
-	const [imageTwo, setImageTwo] = useState('');
-	const [imageThree, setImageThree] = useState('');
 	const [subtitle, setSubtitle] = useState('');
 	const [stripeId, setStripeId] = useState('');
+	const [images, setImages] = useState([]);
+	const [newImage, setNewImage] = useState('');
+
+	const handleAddImage = () => {
+		if (newImage) {
+			const formattedNewImage = 'https://i.imgur.com/' + newImage + '.jpg';
+			setImages([...images, formattedNewImage]);
+			setNewImage('');
+		}
+	};
+
+	const handleRemoveImage = (index) => {
+		const updatedImages = [...images];
+		updatedImages.splice(index, 1);
+		setImages(updatedImages);
+	};
 
 	const createNewProduct = () => {
 		dispatch(
@@ -41,7 +56,7 @@ const AddNewProduct = () => {
 				price,
 				stripeId,
 				subtitle,
-				images: [imageOne, imageTwo, imageThree],
+				images,
 				productIsNew,
 				description,
 			})
@@ -56,8 +71,7 @@ const AddNewProduct = () => {
 		setPrice('');
 		setProductIsNew(true);
 		setDescription('');
-		setImageOne('');
-		setImageTwo('');
+		setImages([]);
 		setSubtitle('');
 		setStripeId('');
 	};
@@ -65,8 +79,42 @@ const AddNewProduct = () => {
 	return (
 		<Tr>
 			<Td>
-				<Text fontSize='sm'>Imgur Image Name</Text>
-				<Tooltip label={'Set the name of your first image e.g., https://i.imgur.com/rw47KJv.jpg'} fontSize='sm'>
+				<Text fontSize='sm'>Images</Text>
+				<Tooltip
+					label={
+						'Set the imgur image identifier, e.g. rw47KJv. This is the last part of the image url after imgur.com/'
+					}
+					fontSize='sm'>
+					<HStack>
+						<Input
+							size='sm'
+							value={newImage}
+							onChange={(e) => setNewImage(e.target.value)}
+							placeholder='e.g. rw47KJv'
+						/>
+						<Button size='sm' onClick={handleAddImage} leftIcon={<MdDriveFolderUpload color='green' />}>
+							Add
+						</Button>
+					</HStack>
+				</Tooltip>
+				<Stack spacing='1' mt='2'>
+					{images.map((image, index) => (
+						<HStack key={index}>
+							<Text fontSize='sm' borderWidth='1'>
+								{image}
+							</Text>
+							<IconButton
+								isRound={true}
+								icon={<MdClose />}
+								size='xxs'
+								onClick={() => handleRemoveImage(index)}
+								variant='solid'
+								colorScheme='red'
+							/>
+						</HStack>
+					))}
+				</Stack>
+				{/* <Tooltip label={'Set the name of your first image e.g., https://i.imgur.com/rw47KJv.jpg'} fontSize='sm'>
 					<Input
 						size='sm'
 						value={imageOne}
@@ -93,7 +141,7 @@ const AddNewProduct = () => {
 						onChange={(e) => setImageThree(e.target.value)}
 						placeholder='e.g., https://i.imgur.com/rw47KJv.jpg'
 					/>
-				</Tooltip>
+				</Tooltip> */}
 			</Td>
 			<Td>
 				<Text fontSize='sm'>Description</Text>

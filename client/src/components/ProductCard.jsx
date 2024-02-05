@@ -68,12 +68,12 @@ const ProductCard = ({ product, loading }) => {
 								<Star rating={product.rating} star={4} />
 								<Star rating={product.rating} star={5} />
 							</HStack>
-							<Text fontSize='md' fontWeight='bold' ml='4px'>
-								{product.numberOfReviews} Reviews
+							<Text fontSize='md' fontWeight='bold' mr='12px'>
+								{product.numberOfReviews === 1 ? '1 Review' : `${product.numberOfReviews} reviews`}
 							</Text>
 						</>
 					) : (
-						<Text fontSize='md' fontWeight='bold' ml='4px'>
+						<Text fontSize='md' fontWeight='bold'>
 							No reviews yet
 						</Text>
 					)}

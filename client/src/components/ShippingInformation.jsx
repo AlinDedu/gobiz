@@ -1,24 +1,8 @@
-import {
-	Box,
-	Button,
-	Flex,
-	FormControl,
-	FormLabel,
-	Input,
-	Popover,
-	PopoverArrow,
-	PopoverBody,
-	PopoverContent,
-	PopoverTrigger,
-	Radio,
-	RadioGroup,
-	Stack,
-	VStack,
-} from '@chakra-ui/react';
+import { Box, Button, Flex, FormControl, FormLabel, Input, Radio, RadioGroup, Stack, VStack } from '@chakra-ui/react';
 import { Formik } from 'formik';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link as ReactLink } from 'react-router-dom';
-import { useState } from 'react';
 import * as Yup from 'yup';
 import { setAddress, setPayment } from '../redux/actions/orderActions';
 import TextField from './TextField';

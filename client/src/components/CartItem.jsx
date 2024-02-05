@@ -1,17 +1,12 @@
 import {
-	CloseButton,
+	Badge, CloseButton,
 	Flex,
 	Image,
 	Select,
 	Spacer,
-	Text,
-	VStack,
-	useColorModeValue as mode,
-	Badge,
-	StepIcon,
+	Text, useColorModeValue as mode, VStack
 } from '@chakra-ui/react';
-import { useEffect } from 'react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { currency } from '../constants';
 import { addCartItem, removeCartItem } from '../redux/actions/cartActions';
@@ -26,7 +21,6 @@ const CartItem = ({ cartItem }) => {
 
 	useEffect(() => {
 		const fetchCartProduct = async () => {
-			console.log(cartItem.id);
 			if (cartProducts.length > 0) {
 				const cartProduct = await cartProducts.find((product) => product._id === cartItem.id);
 				setCartProductStock(cartProduct.stock);
@@ -36,13 +30,6 @@ const CartItem = ({ cartItem }) => {
 		};
 		fetchCartProduct();
 	}, [cartProducts, cartItem.id, qty]);
-
-	console.log(cartProductStock, isLowStock, isOutOfStock);
-
-	// const cartProduct = cartProducts.find((product) => product.id === cartItem.id);
-	// const isOutOfStock = cartProduct?.stock === 0;
-	// const isLowStock = qty > cartProduct?.stock && cartProduct?.stock <= 0;
-	// console.log(isOutOfStock);
 
 	return (
 		<Flex

@@ -1,4 +1,4 @@
-import { Box, Heading, Stack, Flex } from '@chakra-ui/react';
+import { Box, Flex, Heading, Stack } from '@chakra-ui/react';
 import { useSelector } from 'react-redux';
 import { Navigate, useLocation } from 'react-router-dom';
 import OrderSummary from '../components/OrderSummary';

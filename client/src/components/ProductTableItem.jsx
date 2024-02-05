@@ -10,8 +10,8 @@ import {
 	Td,
 	Textarea,
 	Tr,
-	VStack,
 	useDisclosure,
+	VStack,
 } from '@chakra-ui/react';
 import { useRef, useState } from 'react';
 import { MdOutlineDataSaverOn } from 'react-icons/md';
@@ -33,6 +33,7 @@ const ProductTableItem = ({ product }) => {
 	const [imageTwo, setImageTwo] = useState(product.images[1]);
 	const [imageThree, setImageThree] = useState(product.images[2]);
 	const [stripeId, setStripeId] = useState(product.stripeId);
+
 	const dispatch = useDispatch();
 
 	const onSaveProduct = () => {

@@ -70,7 +70,6 @@ const OrdersTab = () => {
 	};
 
 	const onSetToDelivered = (order, awbNumber) => {
-		console.log(order);
 		dispatch(resetErrorAndRemoval());
 		dispatch(setDelivered(order._id, awbNumber));
 	};

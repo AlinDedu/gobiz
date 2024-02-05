@@ -11,10 +11,10 @@ import {
 	Stack,
 	Text,
 	useColorModeValue as mode,
-	VStack,
+	VStack
 } from '@chakra-ui/react';
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { FaArrowRight } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';

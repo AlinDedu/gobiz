@@ -10,10 +10,8 @@ import {
 	FormControl,
 	Heading,
 	Stack,
-	Text,
-	VStack,
-	useBreakpointValue,
-	useToast,
+	Text, useBreakpointValue,
+	useToast, VStack
 } from '@chakra-ui/react';
 import { Formik } from 'formik';
 import { useEffect } from 'react';

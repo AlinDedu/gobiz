@@ -1,14 +1,14 @@
 import axios from 'axios';
 import {
-	setUserOrders,
 	setError,
 	setLoading,
-	setServerResponseStatus,
 	setServerResponseMsg,
+	setServerResponseStatus,
+	setUserOrders,
+	stateReset,
 	userLogin,
 	userLogout,
 	verificationEmail,
-	stateReset,
 } from '../slices/user';
 
 import { clearCart } from '../slices/cart';

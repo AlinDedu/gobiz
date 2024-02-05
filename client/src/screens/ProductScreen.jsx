@@ -7,29 +7,19 @@ import {
 	Badge,
 	Box,
 	Button,
-	Flex,
-	HStack,
-	Heading,
-	Image,
-	SimpleGrid,
+	Flex, Heading, HStack, Image, Input, SimpleGrid,
 	Spinner,
 	Stack,
-	Text,
-	Wrap,
-	useToast,
-	Textarea,
-	Input,
-	Tooltip,
+	Text, Textarea, Tooltip, useToast, Wrap
 } from '@chakra-ui/react';
+import { useEffect, useState } from 'react';
 import { BiCheckShield, BiPackage, BiSupport } from 'react-icons/bi';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { getProduct } from '../redux/actions/productActions';
-import { useEffect, useState } from 'react';
-import { addCartItem } from '../redux/actions/cartActions';
 import Star from '../components/Star';
-import { createProductReview } from '../redux/actions/productActions';
 import { currency } from '../constants';
+import { addCartItem } from '../redux/actions/cartActions';
+import { createProductReview, getProduct } from '../redux/actions/productActions';
 import { getUserOrders } from '../redux/actions/userActions';
 
 const ProductScreen = () => {
@@ -139,18 +129,24 @@ const ProductScreen = () => {
 										<Text fontSize='xl'>
 											{currency} {product.price}
 										</Text>
-										<Flex>
-											<HStack spacing='2px'>
-												<Star color='cyan.500' />
-												<Star rating={product.rating} star={2} />
-												<Star rating={product.rating} star={3} />
-												<Star rating={product.rating} star={4} />
-												<Star rating={product.rating} star={5} />
-											</HStack>
-											<Text fontSize='md' fontWeight='bold' ml='4px'>
-												{product.numberOfReviews} Reviews
+										{product.numberOfReviews > 0 ? (
+											<Flex>
+												<HStack spacing='2px'>
+													<Star color='cyan.500' />
+													<Star rating={product.rating} star={2} />
+													<Star rating={product.rating} star={3} />
+													<Star rating={product.rating} star={4} />
+													<Star rating={product.rating} star={5} />
+												</HStack>
+												<Text fontSize='md' fontWeight='bold' ml='10px'>
+													{product.numberOfReviews === 1 ? '1 Review' : `${product.numberOfReviews} reviews`}
+												</Text>
+											</Flex>
+										) : (
+											<Text fontSize='md' fontWeight='bold'>
+												No reviews yet
 											</Text>
-										</Flex>
+										)}
 									</Box>
 									<Text>{product.description}</Text>
 

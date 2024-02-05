@@ -1,36 +1,14 @@
 import {
-	Box,
-	TableContainer,
-	Th,
-	Tr,
-	Table,
-	Td,
-	Thead,
-	Tbody,
-	Button,
-	useDisclosure,
-	Alert,
-	Stack,
-	Spinner,
-	AlertIcon,
-	AlertTitle,
-	AlertDescription,
-	Wrap,
-	useToast,
 	Accordion,
 	AccordionButton,
 	AccordionItem,
-	AccordionPanel,
-	Flex,
-	Text,
-	Spacer,
-	Textarea,
+	AccordionPanel, Alert, AlertDescription, AlertIcon,
+	AlertTitle, Box, Button, Flex, Spacer, Spinner, Stack, Table, TableContainer, Tbody, Td, Text, Textarea, Th, Thead, Tr, useToast, Wrap
 } from '@chakra-ui/react';
-import { useEffect, useState, useRef } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllUsers, deleteUser, resetErrorAndRemoval } from '../redux/actions/adminActions';
-import { getProducts } from '../redux/actions/productActions';
 import { removeReview } from '../redux/actions/adminActions';
+import { getProducts } from '../redux/actions/productActions';
 
 const ReviewsTab = () => {
 	const dispatch = useDispatch();

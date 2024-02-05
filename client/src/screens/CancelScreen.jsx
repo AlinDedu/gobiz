@@ -1,4 +1,4 @@
-import { Center, Text, Box, Button } from '@chakra-ui/react';
+import { Box, Button, Center, Text } from '@chakra-ui/react';
 import { BsBoxSeamFill } from 'react-icons/bs';
 import { Link as ReactLink } from 'react-router-dom';
 

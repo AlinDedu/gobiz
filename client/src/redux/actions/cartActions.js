@@ -1,12 +1,12 @@
 import axios from 'axios';
 import {
-	setError,
-	setLoading,
-	setShippingCosts,
 	cartItemAdd,
 	cartItemRemoval,
 	clearCart,
 	setCartItemsInDB,
+	setError,
+	setLoading,
+	setShippingCosts,
 } from '../slices/cart';
 
 export const addCartItem = (id, qty) => async (dispatch) => {
