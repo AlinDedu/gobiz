@@ -37,8 +37,8 @@ const Footer = () => (
 						We love gifts.
 					</Text>
 				</Stack>
-				<Stack direction={{ base: 'column-reverse', md: 'column', lg: 'row' }} spacing={{ base: '12', md: '8' }}>
-					{/* <Stack direction='row' spacing='8'>
+				{/* <Stack direction={{ base: 'column-reverse', md: 'column', lg: 'row' }} spacing={{ base: '12', md: '8' }}>
+					<Stack direction='row' spacing='8'>
 						<Stack spacing='4' minW='36' flex='1'>
 							<Text fontSize='sm' fontWeight='semibold' color='subtle'>
 								Product
@@ -58,7 +58,7 @@ const Footer = () => (
 								<Button variant='link'>License</Button>
 							</Stack>
 						</Stack>
-					</Stack> */}
+					</Stack>
 					<Stack spacing='4'>
 						<Text fontSize='sm' fontWeight='semibold' color='subtle'>
 							Stay up to date
@@ -70,14 +70,14 @@ const Footer = () => (
 							</Button>
 						</Stack>
 					</Stack>
-				</Stack>
+				</Stack> */}
 			</Stack>
 			<Divider />
 			<Stack pt='8' pb='12' justify='space-between' direction={{ base: 'column-reverse', md: 'row' }} align='center'>
 				<Text fontSize='sm' color='subtle'>
 					&copy; {new Date().getFullYear()} GoBiz, Inc. All rights reserved.
 				</Text>
-				{/* <ButtonGroup variant='ghost'>
+				<ButtonGroup variant='ghost'>
 					<IconButton
 						as='a'
 						href='https://www.instagram.com/gobiz_romania/'
@@ -85,10 +85,10 @@ const Footer = () => (
 						rel='noopener noreferrer'
 						icon={<FaInstagram fontSize='1.25rem' />}
 					/>
-					<IconButton as='a' href='#' icon={<FaLinkedin fontSize='1.25rem' />} />
+					{/* <IconButton as='a' href='#' icon={<FaLinkedin fontSize='1.25rem' />} />
 					<IconButton as='a' href='#' icon={<FaGithub fontSize='1.25rem' />} />
-					<IconButton as='a' href='#' icon={<FaFacebook fontSize='1.25rem' />} />
-				</ButtonGroup> */}
+					<IconButton as='a' href='#' icon={<FaFacebook fontSize='1.25rem' />} /> */}
+				</ButtonGroup>
 			</Stack>
 		</Container>
 	</Box>
