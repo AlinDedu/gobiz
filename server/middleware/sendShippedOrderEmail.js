@@ -21,7 +21,7 @@ const calculateDeliveryDate = () => {
 
 export const sendShippedOrderEmail = (order) => {
 	const itemsList = order.orderItems
-		.map((item) => `<li>${item.qty} x ${item.name} - $${item.price.toFixed(2)}</li>`)
+		.map((item) => `<li>${item.qty} x ${item.name} - ${currency} ${item.price.toFixed(2)}</li>`)
 		.join('');
 	const awbMessage = order.awbNumber ? `<p>Numar AWB: ${order.awbNumber}</p>` : '';
 	const deliveryDates = calculateDeliveryDate();
@@ -44,7 +44,7 @@ export const sendShippedOrderEmail = (order) => {
             </style>
         <head/>
         <body style="font-family: 'Arial', sans-serif; background-color: #f5f5f5; color: #333; margin: 0; padding: 0; text-align: center;">
-            <h3 style="color: #007BFF;"> Draga ${order.username}</h3>
+            <h3 style="color: #007BFF;"> Draga now ${order.username}</h3>
             <p style="margin-bottom: 20px;">Comanda ta ${storeName} a fost predata curierului. Termen de livrare estimat intre ${
 		deliveryDates.minDeliveryDate
 	} si ${deliveryDates.maxDeliveryDate}!</p>
