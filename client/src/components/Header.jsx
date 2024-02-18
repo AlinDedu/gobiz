@@ -189,9 +189,9 @@ const Header = () => {
 										opacity={1} // Set opacity to full when not disabled
 									/>
 								))}
-							{/* <Badge fontSize='1em' variant='subtle' colorScheme='red'>
+							<Badge fontSize='1em' variant='subtle' colorScheme='red'>
 								TEST MODE
-							</Badge> */}
+							</Badge>
 						</HStack>
 					</HStack>
 					<Flex alignItems='center'>
