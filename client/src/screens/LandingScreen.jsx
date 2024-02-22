@@ -26,8 +26,7 @@ const LandingScreen = () => (
 				<Stack spacing={{ base: '8', lg: '10' }}>
 					<Stack spacing={{ base: '2', lg: '4' }}>
 						<Heading size='xl' fontWeight='normal'>
-							{/* Cherished Surprises: Infuse Love with Every Click! */}
-							This application is in test mode meaning the orders and payments will have no real result!
+							Cherished Surprises: Infuse Love with Every Click!
 						</Heading>
 					</Stack>
 					<HStack spacing='3'>

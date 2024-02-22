@@ -12,9 +12,6 @@ const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
 const stripeRoutes = express.Router();
 stripeRoutes.use(express.json());
 
-// Use express.raw middleware to handle raw body
-// stripeRoutes.use('/webhook', express.raw({ type: 'application/json' }));
-
 const stripePayment = async (req, res) => {
 	const data = req.body;
 	console.log(data);
